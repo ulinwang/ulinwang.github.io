@@ -4,108 +4,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人简历 - [你的名字]</title>
+    <title>王友林 - 简历</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
         }
 
-        h1,
-        h2 {
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 80px 20px 20px;
             color: #333;
         }
 
-        .section {
-            margin-bottom: 30px;
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-color);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
 
-        .contact-info {
-            margin-bottom: 20px;
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
         }
 
-        .experience-item,
-        .education-item {
-            margin-bottom: 15px;
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        .skills-list {
-            columns: 2;
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .resume-item {
+            margin: 1.5rem 0;
+        }
+
+        .resume-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .date {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            body {
+                padding-top: 120px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>[你的名字]</h1>
-        <div class="contact-info">
-            <p>电话: [你的电话]</p>
-            <p>邮箱: [你的邮箱]</p>
-            <p>地址: [你的地址]</p>
-            <p>GitHub: <a href="[你的GitHub链接]">[你的GitHub用户名]</a></p>
-        </div>
-    </header>
-
-    <section class="section">
-        <h2>个人简介</h2>
-        <p>[在这里写一段简短的自我介绍，突出你的专业背景和职业目标]</p>
-    </section>
-
-    <section class="section">
-        <h2>工作经验</h2>
-        <div class="experience-item">
-            <h3>[职位名称] - [公司名称]</h3>
-            <p><em>[开始时间] - [结束时间]</em></p>
-            <ul>
-                <li>[主要职责1]</li>
-                <li>[主要职责2]</li>
-                <li>[主要成就]</li>
-            </ul>
-        </div>
-        <!-- 添加更多工作经历 -->
-    </section>
-
-    <section class="section">
-        <h2>教育背景</h2>
-        <div class="education-item">
-            <h3>[学位] - [学校名称]</h3>
-            <p><em>[开始时间] - [结束时间]</em></p>
-            <p>[专业], [相关课程]</p>
-        </div>
-        <!-- 添加更多教育经历 -->
-    </section>
-
-    <section class="section">
-        <h2>技能</h2>
-        <ul class="skills-list">
-            <li>[编程语言/工具1]</li>
-            <li>[编程语言/工具2]</li>
-            <li>[其他技能]</li>
-            <!-- 添加更多技能 -->
+    <nav>
+        <ul>
+            <li><a href="#education">教育背景</a></li>
+            <li><a href="#skills">个人技能</a></li>
+            <li><a href="#projects">项目经历</a></li>
+            <li><a href="#experience">社会实践</a></li>
+            <li><a href="#awards">荣誉奖励</a></li>
         </ul>
-    </section>
+    </nav>
 
-    <section class="section">
-        <h2>项目经验</h2>
-        <div class="project-item">
-            <h3>[项目名称]</h3>
-            <p><em>[项目时间]</em></p>
-            <p>[项目描述]</p>
+    <div class="container">
+        <header>
+            <h1>王友林</h1>
+            <p>📞 (+86)186-9659-2262 | 📧 <a href="mailto:ulinwang@163.com">ulinwang@163.com</a></p>
+        </header>
+
+        <section id="education">
+            <h2>教育背景</h2>
+            <div class="resume-item">
+                <div class="resume-item-header">
+                    <h3>南京大学</h3>
+                    <span class="date">2022.09 - 2026.06</span>
+                </div>
+                <p>信息管理与信息系统 ｜ 管理学学士</p>
+                <p>GPA: 4.15/5.00</p>
+                <p>核心课程：程序设计语言、数据库原理及应用、数据科学与数据分析、数据结构</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>个人技能</h2>
             <ul>
-                <li>[使用的技术]</li>
-                <li>[你的贡献]</li>
-                <li>[项目成果]</li>
+                <li><strong>编程语言:</strong> Python, R, SQL, C, JavaScript</li>
+                <li><strong>工具软件:</strong> Stata｜SPSS、Tableau｜FineBI、Ps、秀米</li>
+                <li><strong>语言能力:</strong> CET-4：524, CET-6：473</li>
             </ul>
-        </div>
-        <!-- 添加更多项目 -->
-    </section>
+        </section>
 
-    <footer>
-        <p>&copy; [当前年份] [你的名字]. 保留所有权利。</p>
-    </footer>
+        <section id="projects">
+            <h2>项目经历</h2>
+            <div class="resume-item">
+                <div class="resume-item-header">
+                    <h3>基于大语言模型的文献推荐系统</h3>
+                    <span class="date">2023.10 - 2024.10</span>
+                </div>
+                <ul>
+                    <li>国家级大学生创新项目负责人</li>
+                    <li>设计系统架构并组织团队开发</li>
+                    <li>实现对话式推荐功能并优化性能</li>
+                </ul>
+            </div>
+
+            <!-- 其他项目内容类似 -->
+        </section>
+
+        <section id="experience">
+            <h2>社会实践</h2>
+            <div class="resume-item">
+                <div class="resume-item-header">
+                    <h3>“南风愉阅”社会实践</h3>
+                    <span class="date">2023.07 - 2023.09</span>
+                </div>
+                <ul>
+                    <li>重庆地区农家书屋调研项目核心成员</li>
+                    <li>完成万字调研报告撰写</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="awards">
+            <h2>荣誉奖励</h2>
+            <ul>
+                <li>移动之光·数智创新奖学金</li>
+                <li>中国国际大学生创新大赛校赛三等奖</li>
+            </ul>
+        </section>
+    </div>
 </body>
 
 </html>

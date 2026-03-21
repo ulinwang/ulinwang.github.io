@@ -7,861 +7,650 @@
     <title>王友林 · 个人简历</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Noto+Serif+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0f1117;
-            --bg-secondary: #14172a;
-            --bg-card: #1e2235;
-            --bg-card-hover: #242840;
-            --accent-primary: #6c63ff;
-            --accent-secondary: #00d4aa;
-            --accent-gold: #f5a623;
-            --accent-glow: rgba(108, 99, 255, 0.2);
-            --text-primary: #e8eaf6;
-            --text-secondary: #9fa8c7;
-            --text-muted: #5a6285;
-            --border: rgba(108, 99, 255, 0.15);
-            --border-hover: rgba(108, 99, 255, 0.4);
-            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --shadow-hover: 0 16px 48px rgba(108, 99, 255, 0.2);
-            --radius-card: 14px;
-            --radius-pill: 100px;
-            --sidebar-width: 240px;
+            --cream:       #faf6ef;
+            --cream-dark:  #f0e9dc;
+            --ink:         #1c1917;
+            --ink-light:   #44403c;
+            --ink-muted:   #78716c;
+            --ink-faint:   #a8a29e;
+            --rule:        #ddd5c8;
+            --accent:      #8b4513;
+            --accent-warm: #b5651d;
+            --accent-pale: #f5ede3;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 2rem;
+            scroll-padding-top: 5rem;
         }
 
         body {
-            font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            font-family: 'Noto Serif SC', 'Source Han Serif CN', STSong, SimSun, Georgia, serif;
             font-size: 15px;
-            line-height: 1.85;
-            letter-spacing: 0.02em;
-            color: var(--text-primary);
-            background: var(--bg-primary);
-            display: flex;
-            min-height: 100vh;
-            word-break: keep-all;
-            overflow-wrap: break-word;
+            line-height: 1.9;
+            color: var(--ink);
+            background: var(--cream);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ─── Sidebar ─── */
-        #sidebar {
-            width: var(--sidebar-width);
-            min-height: 100vh;
+        /* ─── Top Bar ─── */
+        header {
             position: sticky;
             top: 0;
-            height: 100vh;
-            overflow-y: auto;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 2rem 0 1.5rem;
-            flex-shrink: 0;
-            scrollbar-width: none;
-        }
-
-        #sidebar::-webkit-scrollbar { display: none; }
-
-        .sidebar-profile {
-            text-align: center;
-            padding: 0 1.5rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .avatar-ring {
-            width: 76px;
-            height: 76px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, #6c63ff, #00d4aa, #6c63ff);
-            padding: 3px;
-            margin: 0 auto 1rem;
-            animation: spin-slow 8s linear infinite;
-        }
-
-        @keyframes spin-slow {
-            to { transform: rotate(360deg); }
-        }
-
-        .avatar-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: var(--bg-secondary);
+            z-index: 100;
+            background: var(--cream);
+            border-bottom: 1px solid var(--rule);
+            padding: 0 3rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-primary);
+            justify-content: space-between;
+            height: 64px;
         }
 
-        .sidebar-name {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: 0.04em;
-            margin-bottom: 0.25rem;
+        .header-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 0.06em;
+            color: var(--ink);
         }
 
-        .sidebar-subtitle {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            padding: 1.5rem 0;
+        nav {
+            display: flex;
+            gap: 2rem;
         }
 
         .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1.5rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 500;
-            border-left: 3px solid transparent;
-            transition: color 0.2s, background 0.2s, border-color 0.2s;
-        }
-
-        .nav-link:hover {
-            color: var(--text-primary);
-            background: rgba(108, 99, 255, 0.07);
-        }
-
-        .nav-link.active {
-            color: var(--accent-primary);
-            background: rgba(108, 99, 255, 0.1);
-            border-left-color: var(--accent-primary);
-        }
-
-        .nav-icon {
-            font-size: 0.7rem;
-            color: var(--accent-primary);
-            opacity: 0.7;
-        }
-
-        .sidebar-contact {
-            padding: 1.5rem 1.5rem 0;
-            border-top: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .sidebar-contact a {
+            font-family: 'Noto Serif SC', serif;
             font-size: 0.78rem;
-            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--ink-muted);
             text-decoration: none;
-            font-family: 'JetBrains Mono', monospace;
             transition: color 0.2s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            position: relative;
         }
 
-        .sidebar-contact a:hover {
-            color: var(--accent-secondary);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0; right: 0;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.25s ease;
         }
 
-        /* ─── Main Content ─── */
-        #main-content {
-            flex: 1;
-            padding: 0 2.5rem 5rem;
-            max-width: 820px;
-            min-width: 0;
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--ink);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        /* ─── Page Layout ─── */
+        .page {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 5rem 2rem 8rem;
         }
 
         /* ─── Hero ─── */
         .hero {
-            position: relative;
-            padding: 4.5rem 0 3rem;
-            overflow: hidden;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid var(--rule);
+            margin-bottom: 4.5rem;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -60px;
-            left: -60px;
-            width: 500px;
-            height: 400px;
-            background: radial-gradient(ellipse at center, rgba(108, 99, 255, 0.18) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: -80px;
-            width: 350px;
-            height: 300px;
-            background: radial-gradient(ellipse at center, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-tag {
-            display: inline-block;
-            font-size: 0.82rem;
-            color: var(--accent-secondary);
+        .hero-eyebrow {
             font-family: 'JetBrains Mono', monospace;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.75rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            color: var(--ink-faint);
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
         }
 
         .hero-name {
-            font-size: 3.6rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #e8eaf6 30%, #6c63ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: clamp(3.5rem, 9vw, 6.5rem);
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            color: var(--ink);
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-tagline {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--ink-muted);
+            max-width: 480px;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 2rem;
+            align-items: center;
+        }
+
+        .hero-meta-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--ink-light);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .hero-meta-item a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid var(--rule);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .hero-meta-item a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .hero-divider {
+            color: var(--rule);
+        }
+
+        /* ─── Section ─── */
+        .section {
+            margin-bottom: 4.5rem;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-num {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 0.78rem;
+            font-style: italic;
+            color: var(--ink-faint);
+            letter-spacing: 0.06em;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+        }
+
+        .section-rule {
+            flex: 1;
+            height: 1px;
+            background: var(--rule);
+        }
+
+        /* ─── Education Card ─── */
+        .edu-card {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-school {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--ink);
+            letter-spacing: 0.03em;
+        }
+
+        .edu-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            color: var(--ink-faint);
+        }
+
+        .edu-degree {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--ink-light);
             margin-bottom: 1rem;
         }
 
-        .hero-desc {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            max-width: 560px;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .badge {
+        .gpa-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.3rem;
-            padding: 0.35rem 0.9rem;
-            background: rgba(108, 99, 255, 0.1);
-            border: 1px solid rgba(108, 99, 255, 0.25);
-            border-radius: var(--radius-pill);
-            font-size: 0.82rem;
-            color: var(--text-secondary);
+            gap: 0.5rem;
+            background: var(--accent-pale);
+            border: 1px solid #d4a88a;
+            border-radius: 2px;
+            padding: 0.2rem 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
         }
 
-        /* ─── Sections ─── */
-        section {
-            margin: 2.5rem 0;
+        .edu-courses {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
         }
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
+        /* ─── Skills ─── */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .section-icon {
-            color: var(--accent-primary);
-            font-size: 0.75rem;
+        .skills-table tr {
+            border-bottom: 1px solid var(--rule);
         }
 
-        .section-header h2 {
-            font-size: 0.82rem;
-            font-weight: 600;
+        .skills-table tr:first-child {
+            border-top: 1px solid var(--rule);
+        }
+
+        .skills-table td {
+            padding: 0.85rem 0;
+            vertical-align: top;
+        }
+
+        .skill-cat {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            color: var(--ink-faint);
             text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: var(--text-secondary);
-            white-space: nowrap;
+            width: 90px;
+            padding-right: 1.5rem;
+            padding-top: 1rem;
         }
 
-        .section-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        /* ─── Timeline ─── */
-        .timeline {
+        .skill-items {
             display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.8rem;
+            padding-top: 0.75rem;
         }
 
+        .skill-tag {
+            font-size: 0.85rem;
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 400;
+            color: var(--ink-light);
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 1px;
+        }
+
+        /* ─── Timeline (projects / practice) ─── */
         .timeline-item {
-            display: flex;
-            gap: 1rem;
+            padding: 1.8rem 0;
+            border-bottom: 1px solid var(--rule);
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 0 2rem;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(12px);
             transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .timeline-item:first-child {
+            border-top: 1px solid var(--rule);
         }
 
         .timeline-item.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
         }
 
-        .timeline-gutter {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 1.5rem;
-            width: 20px;
-            flex-shrink: 0;
-        }
-
-        .timeline-dot {
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            background: var(--accent-primary);
-            box-shadow: 0 0 10px var(--accent-glow);
-            flex-shrink: 0;
-        }
-
-        .timeline-connector {
-            flex: 1;
-            width: 1px;
-            background: linear-gradient(to bottom, var(--accent-primary), transparent);
-            margin-top: 4px;
-            opacity: 0.4;
-            min-height: 20px;
-        }
-
-        .timeline-card {
-            flex: 1;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-card);
-            padding: 1.35rem 1.5rem;
-            box-shadow: var(--shadow-card);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-
-        .timeline-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--border-hover);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .timeline-header h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .timeline-date {
+        .tl-date {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            white-space: nowrap;
-            margin-top: 2px;
+            font-size: 0.72rem;
+            color: var(--ink-faint);
+            line-height: 1.6;
+            padding-top: 0.25rem;
         }
 
-        .timeline-subtitle {
-            font-size: 0.88rem;
-            color: var(--accent-secondary);
+        .tl-body {}
+
+        .tl-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.02em;
+        }
+
+        .tl-subtitle {
+            font-size: 0.82rem;
+            color: var(--accent-warm);
+            font-style: italic;
             margin-bottom: 0.75rem;
         }
 
-        .timeline-body {
+        .tl-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tl-list li {
             font-size: 0.88rem;
-            color: var(--text-secondary);
+            color: var(--ink-light);
+            padding-left: 1rem;
+            position: relative;
+            line-height: 1.75;
         }
 
-        .stat-row {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(0, 212, 170, 0.08);
-            border: 1px solid rgba(0, 212, 170, 0.2);
-            border-radius: 6px;
-            padding: 0.2rem 0.7rem;
-            margin-bottom: 0.6rem;
-            font-size: 0.85rem;
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-        }
-
-        .stat-value {
-            color: var(--accent-secondary);
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 500;
-        }
-
-        .timeline-body ul {
-            padding-left: 1.1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .timeline-body li {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-        }
-
-        .timeline-detail {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 0.4rem;
-        }
-
-        /* ─── Skills ─── */
-        .skills-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .skills-category {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-card);
-            padding: 1.1rem 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s ease;
-        }
-
-        .skills-category:hover {
-            border-color: var(--border-hover);
-        }
-
-        .skills-category.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .skills-label {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 0.08em;
-            white-space: nowrap;
-            min-width: 60px;
-        }
-
-        .pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-
-        .pill {
-            display: inline-block;
-            padding: 0.22rem 0.75rem;
-            border-radius: var(--radius-pill);
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid;
-        }
-
-        .pill--lang {
-            color: #a89dff;
-            border-color: rgba(108, 99, 255, 0.4);
-            background: rgba(108, 99, 255, 0.07);
-        }
-
-        .pill--tool {
-            color: #5ddec5;
-            border-color: rgba(0, 212, 170, 0.4);
-            background: rgba(0, 212, 170, 0.06);
-        }
-
-        .pill--cert {
-            color: #f5c87a;
-            border-color: rgba(245, 166, 35, 0.4);
-            background: rgba(245, 166, 35, 0.06);
+        .tl-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--ink-faint);
         }
 
         /* ─── Awards ─── */
-        .awards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .awards-list {
+            list-style: none;
+            border-top: 1px solid var(--rule);
         }
 
-        .award-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-card);
-            padding: 1.25rem 1.4rem;
+        .awards-list li {
             display: flex;
-            align-items: flex-start;
-            gap: 0.85rem;
-            box-shadow: var(--shadow-card);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            align-items: baseline;
+            gap: 1.5rem;
+            padding: 1.1rem 0;
+            border-bottom: 1px solid var(--rule);
         }
 
-        .award-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--border-hover);
-        }
-
-        .award-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .award-icon {
-            font-size: 1.4rem;
-            line-height: 1;
+        .award-mark {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--accent);
             flex-shrink: 0;
+            width: 1rem;
+            text-align: center;
         }
 
         .award-text {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--ink-light);
+        }
+
+        /* ─── Footer ─── */
+        .page-footer {
+            padding-top: 3rem;
+            border-top: 1px solid var(--rule);
+            text-align: center;
+        }
+
+        .footer-sig {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--ink-faint);
+            letter-spacing: 0.06em;
         }
 
         /* ─── Mobile ─── */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
+        @media (max-width: 680px) {
+            header {
+                padding: 0 1.25rem;
             }
 
-            #sidebar {
-                width: 100%;
-                min-height: auto;
-                height: auto;
-                position: sticky;
-                top: 0;
-                flex-direction: row;
-                align-items: center;
-                padding: 0.75rem 1rem;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-                overflow-x: auto;
-                overflow-y: visible;
-                z-index: 100;
-                gap: 0;
-                scrollbar-width: none;
-            }
+            .header-name { font-size: 1.2rem; }
 
-            #sidebar::-webkit-scrollbar { display: none; }
+            nav { gap: 1rem; }
+            .nav-link { font-size: 0.72rem; }
 
-            .sidebar-profile {
-                display: none;
-            }
+            .page { padding: 3rem 1.25rem 5rem; }
 
-            .sidebar-contact {
-                display: none;
-            }
+            .hero-name { font-size: 3.2rem; }
 
-            .sidebar-nav {
-                display: flex;
-                flex-direction: row;
-                padding: 0;
-                flex: 1;
-                gap: 0;
-                justify-content: center;
-            }
-
-            .nav-link {
-                padding: 0.5rem 0.75rem;
-                border-left: none;
-                border-bottom: 2px solid transparent;
-                font-size: 0.82rem;
-                white-space: nowrap;
-            }
-
-            .nav-link.active {
-                border-left-color: transparent;
-                border-bottom-color: var(--accent-primary);
-                background: transparent;
-            }
-
-            .nav-icon { display: none; }
-
-            #main-content {
-                padding: 0 1.25rem 3rem;
-            }
-
-            .hero-name {
-                font-size: 2.5rem;
-            }
-
-            .hero::before, .hero::after { display: none; }
-
-            .timeline-header {
-                flex-direction: column;
-                gap: 0.25rem;
-            }
-
-            .awards-grid {
+            .timeline-item {
                 grid-template-columns: 1fr;
+                gap: 0.3rem;
             }
 
-            .skills-category {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.6rem;
-            }
+            .edu-header { flex-direction: column; gap: 0.25rem; }
+
+            .section-head { gap: 0.75rem; }
         }
     </style>
 </head>
 
 <body>
 
-    <aside id="sidebar">
-        <div class="sidebar-profile">
-            <div class="avatar-ring">
-                <div class="avatar-inner">王</div>
-            </div>
-            <p class="sidebar-name">王友林</p>
-            <p class="sidebar-subtitle">信息管理与信息系统</p>
-            <p class="sidebar-subtitle">南京大学 · 2026届</p>
-        </div>
-
-        <nav class="sidebar-nav">
-            <a href="#education" class="nav-link" data-section="education">
-                <span class="nav-icon">◈</span> 教育背景
-            </a>
-            <a href="#skills" class="nav-link" data-section="skills">
-                <span class="nav-icon">◆</span> 个人技能
-            </a>
-            <a href="#projects" class="nav-link" data-section="projects">
-                <span class="nav-icon">◉</span> 项目经历
-            </a>
-            <a href="#experience" class="nav-link" data-section="experience">
-                <span class="nav-icon">◎</span> 社会实践
-            </a>
-            <a href="#awards" class="nav-link" data-section="awards">
-                <span class="nav-icon">★</span> 荣誉奖励
-            </a>
+    <header>
+        <span class="header-name">Wang Youlin</span>
+        <nav>
+            <a href="#education" class="nav-link" data-section="education">教育</a>
+            <a href="#skills"    class="nav-link" data-section="skills">技能</a>
+            <a href="#projects"  class="nav-link" data-section="projects">项目</a>
+            <a href="#experience" class="nav-link" data-section="experience">实践</a>
+            <a href="#awards"    class="nav-link" data-section="awards">荣誉</a>
         </nav>
+    </header>
 
-        <div class="sidebar-contact">
-            <a href="tel:+8618696592262">☏ 186-9659-2262</a>
-            <a href="mailto:ulinwang@163.com">✉ ulinwang@163.com</a>
-        </div>
-    </aside>
+    <div class="page">
 
-    <main id="main-content">
-
+        <!-- Hero -->
         <section class="hero">
-            <span class="hero-tag">// 你好，我是</span>
+            <p class="hero-eyebrow">Personal Resume · 个人简历</p>
             <h1 class="hero-name">王友林</h1>
-            <p class="hero-desc">南京大学信息管理与信息系统专业，热衷于数据科学与 AI 应用开发</p>
-            <div class="hero-badges">
-                <span class="badge">📚 GPA 4.15 / 5.00</span>
-                <span class="badge">🏆 国家级创新项目负责人</span>
-                <span class="badge">💻 全栈开发爱好者</span>
+            <p class="hero-tagline">南京大学信息管理与信息系统专业，热衷于数据科学与 AI 应用开发。</p>
+            <div class="hero-meta">
+                <span class="hero-meta-item">
+                    ☏ <a href="tel:+8618696592262">(+86) 186-9659-2262</a>
+                </span>
+                <span class="hero-divider">·</span>
+                <span class="hero-meta-item">
+                    ✉ <a href="mailto:ulinwang@163.com">ulinwang@163.com</a>
+                </span>
             </div>
         </section>
 
-        <section id="education">
-            <div class="section-header">
-                <span class="section-icon">◈</span>
-                <h2>教育背景</h2>
-                <div class="section-line"></div>
+        <!-- Education -->
+        <section class="section" id="education">
+            <div class="section-head">
+                <span class="section-num">01</span>
+                <span class="section-title">教育背景</span>
+                <div class="section-rule"></div>
             </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-gutter">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-connector"></div>
-                    </div>
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <h3>南京大学</h3>
-                            <span class="timeline-date">2022.09 — 2026.06</span>
-                        </div>
-                        <p class="timeline-subtitle">信息管理与信息系统 · 管理学学士</p>
-                        <div class="timeline-body">
-                            <div class="stat-row">
-                                <span class="stat-label">GPA</span>
-                                <span class="stat-value">4.15 / 5.00</span>
-                            </div>
-                            <p class="timeline-detail">核心课程：程序设计语言、数据库原理及应用、数据科学与数据分析、数据结构</p>
-                        </div>
-                    </div>
+            <div class="edu-card">
+                <div class="edu-header">
+                    <span class="edu-school">南京大学</span>
+                    <span class="edu-date">2022.09 — 2026.06</span>
                 </div>
+                <p class="edu-degree">信息管理与信息系统 &ensp;·&ensp; 管理学学士</p>
+                <div class="gpa-tag">GPA &nbsp; 4.15 / 5.00</div>
+                <p class="edu-courses">核心课程：程序设计语言、数据库原理及应用、数据科学与数据分析、数据结构</p>
             </div>
         </section>
 
-        <section id="skills">
-            <div class="section-header">
-                <span class="section-icon">◆</span>
-                <h2>个人技能</h2>
-                <div class="section-line"></div>
+        <!-- Skills -->
+        <section class="section" id="skills">
+            <div class="section-head">
+                <span class="section-num">02</span>
+                <span class="section-title">个人技能</span>
+                <div class="section-rule"></div>
             </div>
-            <div class="skills-grid">
-                <div class="skills-category">
-                    <span class="skills-label">编程语言</span>
-                    <div class="pills">
-                        <span class="pill pill--lang">Python</span>
-                        <span class="pill pill--lang">R</span>
-                        <span class="pill pill--lang">SQL</span>
-                        <span class="pill pill--lang">C</span>
-                        <span class="pill pill--lang">JavaScript</span>
-                    </div>
-                </div>
-                <div class="skills-category">
-                    <span class="skills-label">工具软件</span>
-                    <div class="pills">
-                        <span class="pill pill--tool">Stata</span>
-                        <span class="pill pill--tool">SPSS</span>
-                        <span class="pill pill--tool">Tableau</span>
-                        <span class="pill pill--tool">FineBI</span>
-                        <span class="pill pill--tool">Photoshop</span>
-                        <span class="pill pill--tool">秀米</span>
-                    </div>
-                </div>
-                <div class="skills-category">
-                    <span class="skills-label">语言能力</span>
-                    <div class="pills">
-                        <span class="pill pill--cert">CET-4：524</span>
-                        <span class="pill pill--cert">CET-6：473</span>
-                    </div>
-                </div>
-            </div>
+            <table class="skills-table">
+                <tr>
+                    <td class="skill-cat">编程语言</td>
+                    <td>
+                        <div class="skill-items">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">R</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">C</span>
+                            <span class="skill-tag">JavaScript</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="skill-cat">工具软件</td>
+                    <td>
+                        <div class="skill-items">
+                            <span class="skill-tag">Stata</span>
+                            <span class="skill-tag">SPSS</span>
+                            <span class="skill-tag">Tableau</span>
+                            <span class="skill-tag">FineBI</span>
+                            <span class="skill-tag">Photoshop</span>
+                            <span class="skill-tag">秀米</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="skill-cat">语言能力</td>
+                    <td>
+                        <div class="skill-items">
+                            <span class="skill-tag">CET-4：524</span>
+                            <span class="skill-tag">CET-6：473</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </section>
 
-        <section id="projects">
-            <div class="section-header">
-                <span class="section-icon">◉</span>
-                <h2>项目经历</h2>
-                <div class="section-line"></div>
+        <!-- Projects -->
+        <section class="section" id="projects">
+            <div class="section-head">
+                <span class="section-num">03</span>
+                <span class="section-title">项目经历</span>
+                <div class="section-rule"></div>
             </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-gutter">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-connector"></div>
-                    </div>
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <h3>基于大语言模型的文献推荐系统</h3>
-                            <span class="timeline-date">2023.10 — 2024.10</span>
-                        </div>
-                        <p class="timeline-subtitle">国家级大学生创新项目负责人</p>
-                        <div class="timeline-body">
-                            <ul>
-                                <li>设计系统架构并组织团队开发</li>
-                                <li>实现对话式推荐功能并优化性能</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="timeline-item">
+                <div class="tl-date">2023.10<br>—<br>2024.10</div>
+                <div class="tl-body">
+                    <p class="tl-title">基于大语言模型的文献推荐系统</p>
+                    <p class="tl-subtitle">国家级大学生创新项目负责人</p>
+                    <ul class="tl-list">
+                        <li>设计系统架构并组织团队开发</li>
+                        <li>实现对话式推荐功能并优化性能</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="experience">
-            <div class="section-header">
-                <span class="section-icon">◎</span>
-                <h2>社会实践</h2>
-                <div class="section-line"></div>
+        <!-- Experience -->
+        <section class="section" id="experience">
+            <div class="section-head">
+                <span class="section-num">04</span>
+                <span class="section-title">社会实践</span>
+                <div class="section-rule"></div>
             </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-gutter">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-connector"></div>
-                    </div>
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <h3>"南风愉阅"社会实践</h3>
-                            <span class="timeline-date">2023.07 — 2023.09</span>
-                        </div>
-                        <p class="timeline-subtitle">重庆地区农家书屋调研项目</p>
-                        <div class="timeline-body">
-                            <ul>
-                                <li>重庆地区农家书屋调研项目核心成员</li>
-                                <li>完成万字调研报告撰写</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="timeline-item">
+                <div class="tl-date">2023.07<br>—<br>2023.09</div>
+                <div class="tl-body">
+                    <p class="tl-title">"南风愉阅"社会实践</p>
+                    <p class="tl-subtitle">重庆地区农家书屋调研项目</p>
+                    <ul class="tl-list">
+                        <li>重庆地区农家书屋调研项目核心成员</li>
+                        <li>完成万字调研报告撰写</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="awards">
-            <div class="section-header">
-                <span class="section-icon">★</span>
-                <h2>荣誉奖励</h2>
-                <div class="section-line"></div>
+        <!-- Awards -->
+        <section class="section" id="awards">
+            <div class="section-head">
+                <span class="section-num">05</span>
+                <span class="section-title">荣誉奖励</span>
+                <div class="section-rule"></div>
             </div>
-            <div class="awards-grid">
-                <div class="award-card">
-                    <span class="award-icon">✦</span>
-                    <p class="award-text">移动之光·数智创新奖学金</p>
-                </div>
-                <div class="award-card">
-                    <span class="award-icon">🏆</span>
-                    <p class="award-text">中国国际大学生创新大赛校赛三等奖</p>
-                </div>
-            </div>
+            <ul class="awards-list">
+                <li>
+                    <span class="award-mark">★</span>
+                    <span class="award-text">移动之光·数智创新奖学金</span>
+                </li>
+                <li>
+                    <span class="award-mark">★</span>
+                    <span class="award-text">中国国际大学生创新大赛校赛三等奖</span>
+                </li>
+            </ul>
         </section>
 
-    </main>
+        <footer class="page-footer">
+            <p class="footer-sig">王友林 &thinsp;·&thinsp; Nanjing University &thinsp;·&thinsp; 2026</p>
+        </footer>
+
+    </div>
 
     <script>
-        // Active nav link on scroll
+        // Active nav on scroll
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-link[data-section]');
 
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
+        const navObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
                     navLinks.forEach(l => l.classList.remove('active'));
-                    const active = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
-                    if (active) active.classList.add('active');
+                    const a = document.querySelector(`.nav-link[data-section="${e.target.id}"]`);
+                    if (a) a.classList.add('active');
                 }
             });
-        }, { threshold: 0.35 });
+        }, { threshold: 0.4 });
 
-        sections.forEach(s => sectionObserver.observe(s));
+        sections.forEach(s => navObserver.observe(s));
 
-        // Scroll-triggered fade-in
-        const fadeEls = document.querySelectorAll('.timeline-item, .award-card, .skills-category');
+        // Fade-in on scroll
+        const fadeTargets = document.querySelectorAll('.section, .timeline-item');
 
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, i) => {
-                if (entry.isIntersecting) {
-                    entry.target.style.transitionDelay = `${i * 0.06}s`;
-                    entry.target.classList.add('visible');
-                    fadeObserver.unobserve(entry.target);
+        const fadeObserver = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    e.target.style.transitionDelay = `${(i % 4) * 0.07}s`;
+                    e.target.classList.add('visible');
+                    fadeObserver.unobserve(e.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.08 });
 
-        fadeEls.forEach(el => fadeObserver.observe(el));
+        fadeTargets.forEach(el => fadeObserver.observe(el));
     </script>
 
 </body>
-
 </html>

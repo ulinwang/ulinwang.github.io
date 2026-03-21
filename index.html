@@ -4,190 +4,864 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>王友林 - 简历</title>
+    <title>王友林 · 个人简历</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #3498db;
+            --bg-primary: #0f1117;
+            --bg-secondary: #14172a;
+            --bg-card: #1e2235;
+            --bg-card-hover: #242840;
+            --accent-primary: #6c63ff;
+            --accent-secondary: #00d4aa;
+            --accent-gold: #f5a623;
+            --accent-glow: rgba(108, 99, 255, 0.2);
+            --text-primary: #e8eaf6;
+            --text-secondary: #9fa8c7;
+            --text-muted: #5a6285;
+            --border: rgba(108, 99, 255, 0.15);
+            --border-hover: rgba(108, 99, 255, 0.4);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 16px 48px rgba(108, 99, 255, 0.2);
+            --radius-card: 14px;
+            --radius-pill: 100px;
+            --sidebar-width: 240px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 2rem;
         }
 
         body {
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 80px 20px 20px;
-            color: #333;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--primary-color);
-            padding: 1rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            font-size: 15px;
+            line-height: 1.85;
+            letter-spacing: 0.02em;
+            color: var(--text-primary);
+            background: var(--bg-primary);
             display: flex;
+            min-height: 100vh;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── Sidebar ─── */
+        #sidebar {
+            width: var(--sidebar-width);
+            min-height: 100vh;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 0 1.5rem;
+            flex-shrink: 0;
+            scrollbar-width: none;
+        }
+
+        #sidebar::-webkit-scrollbar { display: none; }
+
+        .sidebar-profile {
+            text-align: center;
+            padding: 0 1.5rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .avatar-ring {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #6c63ff, #00d4aa, #6c63ff);
+            padding: 3px;
+            margin: 0 auto 1rem;
+            animation: spin-slow 8s linear infinite;
+        }
+
+        @keyframes spin-slow {
+            to { transform: rotate(360deg); }
+        }
+
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
-        nav a {
-            color: white;
+        .sidebar-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1.5rem 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1.5rem;
+            color: var(--text-secondary);
             text-decoration: none;
+            font-size: 0.88rem;
             font-weight: 500;
-            transition: color 0.3s;
+            border-left: 3px solid transparent;
+            transition: color 0.2s, background 0.2s, border-color 0.2s;
         }
 
-        nav a:hover {
-            color: var(--accent-color);
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: rgba(108, 99, 255, 0.07);
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        .nav-link.active {
+            color: var(--accent-primary);
+            background: rgba(108, 99, 255, 0.1);
+            border-left-color: var(--accent-primary);
         }
 
+        .nav-icon {
+            font-size: 0.7rem;
+            color: var(--accent-primary);
+            opacity: 0.7;
+        }
+
+        .sidebar-contact {
+            padding: 1.5rem 1.5rem 0;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .sidebar-contact a {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            transition: color 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebar-contact a:hover {
+            color: var(--accent-secondary);
+        }
+
+        /* ─── Main Content ─── */
+        #main-content {
+            flex: 1;
+            padding: 0 2.5rem 5rem;
+            max-width: 820px;
+            min-width: 0;
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            position: relative;
+            padding: 4.5rem 0 3rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: -60px;
+            width: 500px;
+            height: 400px;
+            background: radial-gradient(ellipse at center, rgba(108, 99, 255, 0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -80px;
+            width: 350px;
+            height: 300px;
+            background: radial-gradient(ellipse at center, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.82rem;
+            color: var(--accent-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-name {
+            font-size: 3.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #e8eaf6 30%, #6c63ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.35rem 0.9rem;
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.25);
+            border-radius: var(--radius-pill);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        /* ─── Sections ─── */
         section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 2.5rem 0;
         }
 
-        h1,
-        h2,
-        h3 {
-            color: var(--primary-color);
-            margin-top: 0;
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
 
-        h2 {
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 0.5rem;
+        .section-icon {
+            color: var(--accent-primary);
+            font-size: 0.75rem;
         }
 
-        .resume-item {
-            margin: 1.5rem 0;
+        .section-header h2 {
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-secondary);
+            white-space: nowrap;
         }
 
-        .resume-item-header {
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ─── Timeline ─── */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-gutter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 1.5rem;
+            width: 20px;
+            flex-shrink: 0;
+        }
+
+        .timeline-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-glow);
+            flex-shrink: 0;
+        }
+
+        .timeline-connector {
+            flex: 1;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent-primary), transparent);
+            margin-top: 4px;
+            opacity: 0.4;
+            min-height: 20px;
+        }
+
+        .timeline-card {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 1.35rem 1.5rem;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-hover);
+        }
+
+        .timeline-header {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.5rem;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.4rem;
         }
 
-        .date {
-            color: #666;
-            font-size: 0.9em;
+        .timeline-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
-        ul {
-            padding-left: 1.5rem;
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            margin-top: 2px;
         }
 
+        .timeline-subtitle {
+            font-size: 0.88rem;
+            color: var(--accent-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-body {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 212, 170, 0.08);
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            border-radius: 6px;
+            padding: 0.2rem 0.7rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+        }
+
+        .stat-value {
+            color: var(--accent-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .timeline-body ul {
+            padding-left: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .timeline-body li {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+        }
+
+        .timeline-detail {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+        }
+
+        /* ─── Skills ─── */
+        .skills-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .skills-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 1.1rem 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s ease;
+        }
+
+        .skills-category:hover {
+            border-color: var(--border-hover);
+        }
+
+        .skills-category.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skills-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+            min-width: 60px;
+        }
+
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.22rem 0.75rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .pill--lang {
+            color: #a89dff;
+            border-color: rgba(108, 99, 255, 0.4);
+            background: rgba(108, 99, 255, 0.07);
+        }
+
+        .pill--tool {
+            color: #5ddec5;
+            border-color: rgba(0, 212, 170, 0.4);
+            background: rgba(0, 212, 170, 0.06);
+        }
+
+        .pill--cert {
+            color: #f5c87a;
+            border-color: rgba(245, 166, 35, 0.4);
+            background: rgba(245, 166, 35, 0.06);
+        }
+
+        /* ─── Awards ─── */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .award-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 1.25rem 1.4rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            box-shadow: var(--shadow-card);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .award-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-hover);
+        }
+
+        .award-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .award-icon {
+            font-size: 1.4rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .award-text {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ─── Mobile ─── */
         @media (max-width: 768px) {
-            nav ul {
+            body {
                 flex-direction: column;
-                gap: 1rem;
-                text-align: center;
             }
 
-            body {
-                padding-top: 120px;
+            #sidebar {
+                width: 100%;
+                min-height: auto;
+                height: auto;
+                position: sticky;
+                top: 0;
+                flex-direction: row;
+                align-items: center;
+                padding: 0.75rem 1rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                overflow-x: auto;
+                overflow-y: visible;
+                z-index: 100;
+                gap: 0;
+                scrollbar-width: none;
+            }
+
+            #sidebar::-webkit-scrollbar { display: none; }
+
+            .sidebar-profile {
+                display: none;
+            }
+
+            .sidebar-contact {
+                display: none;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-direction: row;
+                padding: 0;
+                flex: 1;
+                gap: 0;
+                justify-content: center;
+            }
+
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+                font-size: 0.82rem;
+                white-space: nowrap;
+            }
+
+            .nav-link.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--accent-primary);
+                background: transparent;
+            }
+
+            .nav-icon { display: none; }
+
+            #main-content {
+                padding: 0 1.25rem 3rem;
+            }
+
+            .hero-name {
+                font-size: 2.5rem;
+            }
+
+            .hero::before, .hero::after { display: none; }
+
+            .timeline-header {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .awards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-category {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="#education">教育背景</a></li>
-            <li><a href="#skills">个人技能</a></li>
-            <li><a href="#projects">项目经历</a></li>
-            <li><a href="#experience">社会实践</a></li>
-            <li><a href="#awards">荣誉奖励</a></li>
-        </ul>
-    </nav>
 
-    <div class="container">
-        <header>
-            <h1>王友林</h1>
-            <p>📞 (+86)186-9659-2262 | 📧 <a href="mailto:ulinwang@163.com">ulinwang@163.com</a></p>
-        </header>
+    <aside id="sidebar">
+        <div class="sidebar-profile">
+            <div class="avatar-ring">
+                <div class="avatar-inner">王</div>
+            </div>
+            <p class="sidebar-name">王友林</p>
+            <p class="sidebar-subtitle">信息管理与信息系统</p>
+            <p class="sidebar-subtitle">南京大学 · 2026届</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#education" class="nav-link" data-section="education">
+                <span class="nav-icon">◈</span> 教育背景
+            </a>
+            <a href="#skills" class="nav-link" data-section="skills">
+                <span class="nav-icon">◆</span> 个人技能
+            </a>
+            <a href="#projects" class="nav-link" data-section="projects">
+                <span class="nav-icon">◉</span> 项目经历
+            </a>
+            <a href="#experience" class="nav-link" data-section="experience">
+                <span class="nav-icon">◎</span> 社会实践
+            </a>
+            <a href="#awards" class="nav-link" data-section="awards">
+                <span class="nav-icon">★</span> 荣誉奖励
+            </a>
+        </nav>
+
+        <div class="sidebar-contact">
+            <a href="tel:+8618696592262">☏ 186-9659-2262</a>
+            <a href="mailto:ulinwang@163.com">✉ ulinwang@163.com</a>
+        </div>
+    </aside>
+
+    <main id="main-content">
+
+        <section class="hero">
+            <span class="hero-tag">// 你好，我是</span>
+            <h1 class="hero-name">王友林</h1>
+            <p class="hero-desc">南京大学信息管理与信息系统专业，热衷于数据科学与 AI 应用开发</p>
+            <div class="hero-badges">
+                <span class="badge">📚 GPA 4.15 / 5.00</span>
+                <span class="badge">🏆 国家级创新项目负责人</span>
+                <span class="badge">💻 全栈开发爱好者</span>
+            </div>
+        </section>
 
         <section id="education">
-            <h2>教育背景</h2>
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3>南京大学</h3>
-                    <span class="date">2022.09 - 2026.06</span>
+            <div class="section-header">
+                <span class="section-icon">◈</span>
+                <h2>教育背景</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-gutter">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-connector"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <h3>南京大学</h3>
+                            <span class="timeline-date">2022.09 — 2026.06</span>
+                        </div>
+                        <p class="timeline-subtitle">信息管理与信息系统 · 管理学学士</p>
+                        <div class="timeline-body">
+                            <div class="stat-row">
+                                <span class="stat-label">GPA</span>
+                                <span class="stat-value">4.15 / 5.00</span>
+                            </div>
+                            <p class="timeline-detail">核心课程：程序设计语言、数据库原理及应用、数据科学与数据分析、数据结构</p>
+                        </div>
+                    </div>
                 </div>
-                <p>信息管理与信息系统 ｜ 管理学学士</p>
-                <p>GPA: 4.15/5.00</p>
-                <p>核心课程：程序设计语言、数据库原理及应用、数据科学与数据分析、数据结构</p>
             </div>
         </section>
 
         <section id="skills">
-            <h2>个人技能</h2>
-            <ul>
-                <li><strong>编程语言:</strong> Python, R, SQL, C, JavaScript</li>
-                <li><strong>工具软件:</strong> Stata｜SPSS、Tableau｜FineBI、Ps、秀米</li>
-                <li><strong>语言能力:</strong> CET-4：524, CET-6：473</li>
-            </ul>
+            <div class="section-header">
+                <span class="section-icon">◆</span>
+                <h2>个人技能</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skills-category">
+                    <span class="skills-label">编程语言</span>
+                    <div class="pills">
+                        <span class="pill pill--lang">Python</span>
+                        <span class="pill pill--lang">R</span>
+                        <span class="pill pill--lang">SQL</span>
+                        <span class="pill pill--lang">C</span>
+                        <span class="pill pill--lang">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skills-category">
+                    <span class="skills-label">工具软件</span>
+                    <div class="pills">
+                        <span class="pill pill--tool">Stata</span>
+                        <span class="pill pill--tool">SPSS</span>
+                        <span class="pill pill--tool">Tableau</span>
+                        <span class="pill pill--tool">FineBI</span>
+                        <span class="pill pill--tool">Photoshop</span>
+                        <span class="pill pill--tool">秀米</span>
+                    </div>
+                </div>
+                <div class="skills-category">
+                    <span class="skills-label">语言能力</span>
+                    <div class="pills">
+                        <span class="pill pill--cert">CET-4：524</span>
+                        <span class="pill pill--cert">CET-6：473</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="projects">
-            <h2>项目经历</h2>
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3>基于大语言模型的文献推荐系统</h3>
-                    <span class="date">2023.10 - 2024.10</span>
-                </div>
-                <ul>
-                    <li>国家级大学生创新项目负责人</li>
-                    <li>设计系统架构并组织团队开发</li>
-                    <li>实现对话式推荐功能并优化性能</li>
-                </ul>
+            <div class="section-header">
+                <span class="section-icon">◉</span>
+                <h2>项目经历</h2>
+                <div class="section-line"></div>
             </div>
-
-            <!-- 其他项目内容类似 -->
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-gutter">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-connector"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <h3>基于大语言模型的文献推荐系统</h3>
+                            <span class="timeline-date">2023.10 — 2024.10</span>
+                        </div>
+                        <p class="timeline-subtitle">国家级大学生创新项目负责人</p>
+                        <div class="timeline-body">
+                            <ul>
+                                <li>设计系统架构并组织团队开发</li>
+                                <li>实现对话式推荐功能并优化性能</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="experience">
-            <h2>社会实践</h2>
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3>“南风愉阅”社会实践</h3>
-                    <span class="date">2023.07 - 2023.09</span>
+            <div class="section-header">
+                <span class="section-icon">◎</span>
+                <h2>社会实践</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-gutter">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-connector"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <h3>"南风愉阅"社会实践</h3>
+                            <span class="timeline-date">2023.07 — 2023.09</span>
+                        </div>
+                        <p class="timeline-subtitle">重庆地区农家书屋调研项目</p>
+                        <div class="timeline-body">
+                            <ul>
+                                <li>重庆地区农家书屋调研项目核心成员</li>
+                                <li>完成万字调研报告撰写</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <ul>
-                    <li>重庆地区农家书屋调研项目核心成员</li>
-                    <li>完成万字调研报告撰写</li>
-                </ul>
             </div>
         </section>
 
         <section id="awards">
-            <h2>荣誉奖励</h2>
-            <ul>
-                <li>移动之光·数智创新奖学金</li>
-                <li>中国国际大学生创新大赛校赛三等奖</li>
-            </ul>
+            <div class="section-header">
+                <span class="section-icon">★</span>
+                <h2>荣誉奖励</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <span class="award-icon">✦</span>
+                    <p class="award-text">移动之光·数智创新奖学金</p>
+                </div>
+                <div class="award-card">
+                    <span class="award-icon">🏆</span>
+                    <p class="award-text">中国国际大学生创新大赛校赛三等奖</p>
+                </div>
+            </div>
         </section>
-    </div>
+
+    </main>
+
+    <script>
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    const active = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
+                    if (active) active.classList.add('active');
+                }
+            });
+        }, { threshold: 0.35 });
+
+        sections.forEach(s => sectionObserver.observe(s));
+
+        // Scroll-triggered fade-in
+        const fadeEls = document.querySelectorAll('.timeline-item, .award-card, .skills-category');
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.transitionDelay = `${i * 0.06}s`;
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeEls.forEach(el => fadeObserver.observe(el));
+    </script>
+
 </body>
 
 </html>

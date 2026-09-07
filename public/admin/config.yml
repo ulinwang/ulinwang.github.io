@@ -10,7 +10,7 @@ backend:
   repo: ulinwang/ulinwang.github.io
   branch: main
   # TODO: 上线后替换为实际 Vercel 域名（对应 app/api/auth 与 app/api/callback）
-  base_url: https://ulinwang.vercel.app
+  base_url: https://ulinwanggithubio.vercel.app
   auth_endpoint: api/auth
 
 media_folder: public/uploads

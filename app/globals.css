@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0a0f;
+  --accent-violet: #a78bfa;
+  --accent-cyan: #22d3ee;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--bg);
+  color: #e7e7ee;
+  overflow-x: hidden;
+}
+
+/* 自定义光标开启时隐藏系统光标（仅桌面精确指针） */
+@media (pointer: fine) {
+  html.custom-cursor,
+  html.custom-cursor a,
+  html.custom-cursor button,
+  html.custom-cursor [data-cursor] {
+    cursor: none;
+  }
+}
+
+::selection {
+  background: rgba(167, 139, 250, 0.35);
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, var(--accent-violet), var(--accent-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.prose-dark h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 1.75rem 0 0.75rem;
+  color: #f1f1f7;
+}
+
+.prose-dark p {
+  margin: 0.75rem 0;
+  line-height: 1.9;
+  color: #b9b9c7;
+}
+
+.prose-dark ul {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+  color: #b9b9c7;
+  line-height: 1.9;
+}
+
+.prose-dark strong {
+  color: #e7e7ee;
+}
+
+.prose-dark img {
+  border-radius: 0.75rem;
+  margin: 1.5rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 100%;
+}
+
+.prose-dark a {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 3s ease-in-out infinite;
+}

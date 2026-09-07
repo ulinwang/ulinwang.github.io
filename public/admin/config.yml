@@ -1,0 +1,57 @@
+# Decap CMS 配置
+# 本地编辑：运行 `npx decap-server`，取消注释 local_backend，访问 http://localhost:3000/admin/
+# 线上编辑：部署到 Vercel 后配置 GitHub OAuth（见 README），
+#           并把下面的 base_url 替换为实际 Vercel 域名
+
+# local_backend: true
+
+backend:
+  name: github
+  repo: ulinwang/ulinwang.github.io
+  branch: main
+  # TODO: 上线后替换为实际 Vercel 域名（对应 app/api/auth 与 app/api/callback）
+  base_url: https://ulinwang.vercel.app
+  auth_endpoint: api/auth
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: site
+    label: 站点内容
+    files:
+      - name: intro
+        label: 简介
+        file: content/site/intro.md
+        fields:
+          - { label: 标题, name: title, widget: string }
+          - { label: 正文, name: body, widget: markdown }
+      - name: about
+        label: 关于我
+        file: content/site/about.md
+        fields:
+          - { label: 标题, name: title, widget: string }
+          - { label: GitHub 链接, name: github, widget: string }
+          - { label: 邮箱, name: email, widget: string }
+          - { label: 小红书链接, name: xhs, widget: string }
+          - { label: 正文, name: body, widget: markdown }
+
+  - name: projects
+    label: 作品集
+    folder: content/projects
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: frontmatter
+    sortable_fields: [order, title]
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 描述, name: description, widget: text }
+      - label: 标签
+        name: tags
+        widget: list
+        field: { label: 标签, name: tag, widget: string }
+      - { label: 链接, name: link, widget: string, required: false }
+      - { label: 精选, name: featured, widget: boolean, default: false }
+      - { label: 排序, name: order, widget: number, default: 99 }
+      - { label: 正文, name: body, widget: markdown }

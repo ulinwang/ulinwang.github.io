@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { scrollToSection } from '@/lib/scroll';
+import WebGLBackground from '@/components/WebGLBackground';
 
 const PARTICLE_COUNT = 24;
 
@@ -34,12 +35,6 @@ export default function Hero() {
         { y: 80, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, stagger: 0.18 },
       )
-        .fromTo(
-          '.hero-glow',
-          { opacity: 0, scale: 0.8 },
-          { opacity: 1, scale: 1, duration: 1.6, ease: 'power2.out' },
-          0,
-        )
         .fromTo(
           '.hero-particle',
           { opacity: 0 },
@@ -80,21 +75,8 @@ export default function Hero() {
       ref={rootRef}
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6"
     >
-      {/* 背景渐变光晕 */}
-      <div
-        className="hero-glow absolute left-1/2 top-1/3 h-[60vmin] w-[80vmin] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 blur-3xl"
-        style={{
-          background:
-            'radial-gradient(closest-side, rgba(167,139,250,0.28), transparent)',
-        }}
-      />
-      <div
-        className="hero-glow absolute right-[10%] top-[15%] h-[40vmin] w-[40vmin] rounded-full opacity-0 blur-3xl"
-        style={{
-          background:
-            'radial-gradient(closest-side, rgba(34,211,238,0.18), transparent)',
-        }}
-      />
+      {/* WebGL 星云背景（失败/reduced-motion 时组件内部降级为静态渐变） */}
+      <WebGLBackground />
 
       {/* 粒子 */}
       {particles.map((p) => (

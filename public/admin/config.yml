@@ -55,3 +55,33 @@ collections:
       - { label: 精选, name: featured, widget: boolean, default: false }
       - { label: 排序, name: order, widget: number, default: 99 }
       - { label: 正文, name: body, widget: markdown }
+
+  - name: experience
+    label: 工作经历
+    folder: content/experience
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: frontmatter
+    sortable_fields: [order, company]
+    fields:
+      - { label: 公司, name: company, widget: string }
+      - { label: 职位, name: role, widget: string }
+      - { label: 时间段, name: period, widget: string }
+      - { label: 排序, name: order, widget: number, default: 99 }
+      - { label: 工作内容, name: body, widget: markdown }
+
+  - name: education
+    label: 教育经历
+    folder: content/education
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: frontmatter
+    sortable_fields: [order, school]
+    fields:
+      - { label: 学校, name: school, widget: string }
+      - { label: 学位, name: degree, widget: string }
+      - { label: 时间段, name: period, widget: string }
+      - { label: 排序, name: order, widget: number, default: 99 }
+      - { label: 详情, name: body, widget: markdown }

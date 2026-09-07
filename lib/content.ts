@@ -78,6 +78,63 @@ export function getProjects(): Project[] {
   return projects.sort((a, b) => a.order - b.order);
 }
 
+export interface ExperienceItem {
+  slug: string;
+  company: string;
+  role: string;
+  period: string;
+  order: number;
+  body: string;
+}
+
+export interface EducationItem {
+  slug: string;
+  school: string;
+  degree: string;
+  period: string;
+  order: number;
+  body: string;
+}
+
+function readFolderCollection<T extends { slug: string; order: number }>(
+  folder: string,
+  map: (data: Record<string, unknown>, body: string, slug: string) => T,
+): T[] {
+  const dir = path.join(contentDir, folder);
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .map((file) => {
+      const slug = file.replace(/\.md$/, '');
+      const { data, content } = readMarkdownFile(path.join(dir, file));
+      return map(data, content, slug);
+    })
+    .sort((a, b) => a.order - b.order);
+}
+
+export function getExperience(): ExperienceItem[] {
+  return readFolderCollection('experience', (data, body, slug) => ({
+    slug,
+    company: String(data.company ?? slug),
+    role: String(data.role ?? ''),
+    period: String(data.period ?? ''),
+    order: typeof data.order === 'number' ? data.order : 99,
+    body,
+  }));
+}
+
+export function getEducation(): EducationItem[] {
+  return readFolderCollection('education', (data, body, slug) => ({
+    slug,
+    school: String(data.school ?? slug),
+    degree: String(data.degree ?? ''),
+    period: String(data.period ?? ''),
+    order: typeof data.order === 'number' ? data.order : 99,
+    body,
+  }));
+}
+
 export function getProject(slug: string): Project | undefined {
   return getProjects().find((p) => p.slug === slug);
 }

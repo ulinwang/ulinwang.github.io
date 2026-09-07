@@ -27,6 +27,8 @@ export interface ProjectMeta {
   link?: string;
   featured: boolean;
   order: number;
+  x: number;
+  y: number;
 }
 
 export interface Project extends ProjectMeta {
@@ -72,6 +74,8 @@ export function getProjects(): Project[] {
       link: data.link || undefined,
       featured: Boolean(data.featured),
       order: typeof data.order === 'number' ? data.order : 99,
+      x: typeof data.x === 'number' ? data.x : 0,
+      y: typeof data.y === 'number' ? data.y : 0,
       body: content,
     };
   });

@@ -8,6 +8,8 @@ tags:
 link: https://github.com/ulinwang/cuhk-sis-nova
 featured: true
 order: 3
+x: 1140
+y: 160
 ---
 
 ## 项目简介

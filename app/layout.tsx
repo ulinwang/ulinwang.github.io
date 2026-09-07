@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_SC, Space_Grotesk } from 'next/font/google';
+import { Noto_Sans_SC, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
 import SmoothScroll from '@/components/SmoothScroll';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Frame from '@/components/Frame';
 import { getAbout } from '@/lib/content';
 
 const sans = Noto_Sans_SC({
@@ -19,6 +20,12 @@ const display = Space_Grotesk({
   variable: '--font-display',
 });
 
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-mono',
+});
+
 export const metadata: Metadata = {
   title: '王友林 UlinWang — AI 产品经理 × 全栈开发者',
   description:
@@ -30,9 +37,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const about = getAbout();
   return (
-    <html lang="zh-CN" className={`${sans.variable} ${display.variable}`}>
+    <html
+      lang="zh-CN"
+      className={`${sans.variable} ${display.variable} ${mono.variable}`}
+    >
       <body className="font-sans antialiased">
         <CustomCursor />
+        <Frame />
         <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
         <Footer github={about.github} email={about.email} xhs={about.xhs} />

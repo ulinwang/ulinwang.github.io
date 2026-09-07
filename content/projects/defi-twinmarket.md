@@ -7,6 +7,8 @@ tags:
   - 学术研究
 featured: true
 order: 2
+x: 600
+y: 60
 ---
 
 ## 研究概述

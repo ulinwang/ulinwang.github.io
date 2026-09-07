@@ -12,10 +12,15 @@ interface RevealProps {
 }
 
 /**
- * 通用入场动画容器：GSAP 上浮淡入。
- * 隐藏标签页直通终态；2s 超时兜底强制播完（与 Hero/Portfolio 同模式）。
+ * 通用入场容器：机械式硬切出现（steps 缓动 + 短位移）。
+ * 隐藏标签页直通终态；超时兜底强制播完。
  */
-export default function Reveal({ children, className, delay = 0, y = 40 }: RevealProps) {
+export default function Reveal({
+  children,
+  className,
+  delay = 0,
+  y = 24,
+}: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,11 +34,17 @@ export default function Reveal({ children, className, delay = 0, y = 40 }: Revea
     const tween = gsap.fromTo(
       el,
       { y, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.35,
+        ease: 'steps(4)',
+        delay,
+      },
     );
     const safety = window.setTimeout(() => {
       if (tween.progress() < 1) tween.progress(1);
-    }, 2000 + delay * 1000);
+    }, 1500 + delay * 1000);
     tween.eventCallback('onComplete', () => window.clearTimeout(safety));
 
     return () => {

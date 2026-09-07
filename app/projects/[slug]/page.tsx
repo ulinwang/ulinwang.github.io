@@ -21,6 +21,8 @@ export async function generateMetadata({
   };
 }
 
+const pad = (n: number) => String(n).padStart(2, '0');
+
 export default async function ProjectPage({
   params,
 }: {
@@ -33,41 +35,65 @@ export default async function ProjectPage({
   const html = await markdownToHtml(project.body);
 
   return (
-    <main className="mx-auto min-h-screen max-w-3xl px-6 py-24">
-      <Link
-        href="/projects"
-        className="text-sm text-accent-cyan transition-colors hover:text-accent"
-      >
-        ← 返回作品集
-      </Link>
-      <h1 className="mt-8 font-display text-3xl font-bold leading-snug md:text-5xl">
-        {project.title}
-      </h1>
-      <p className="mt-4 text-lg text-zinc-400">{project.description}</p>
-      <div className="mt-6 flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-      {project.link && (
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 inline-block rounded-full bg-gradient-to-r from-accent to-accent-cyan px-6 py-2.5 text-sm font-semibold text-ink transition-transform hover:scale-105"
+    <main className="min-h-screen px-6 pb-24 pt-24 sm:px-10">
+      <div className="mx-auto max-w-4xl">
+        <Link
+          href="/projects"
+          className="font-mono text-[11px] tracking-[0.25em] text-dim hover:bg-accent hover:text-ink"
         >
-          访问项目 →
-        </a>
-      )}
-      <article
-        className="prose-dark mt-12 border-t border-white/10 pt-8"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+          ← BACK TO WORKS
+        </Link>
+
+        {/* 超大出血标题 */}
+        <h1 className="mt-10 font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+          {project.title}
+        </h1>
+
+        {/* meta title block */}
+        <div className="mt-10 inline-block border border-line font-mono text-[11px] tracking-wider">
+          <div className="flex border-b border-line">
+            <span className="w-20 border-r border-line px-3 py-2 text-dim">
+              NO.
+            </span>
+            <span className="px-3 py-2 text-accent">P.{pad(project.order)}</span>
+          </div>
+          <div className="flex border-b border-line">
+            <span className="w-20 border-r border-line px-3 py-2 text-dim">
+              TAGS
+            </span>
+            <span className="px-3 py-2 text-paper">
+              {project.tags.join(' / ')}
+            </span>
+          </div>
+          {project.link && (
+            <div className="flex border-b border-line">
+              <span className="w-20 border-r border-line px-3 py-2 text-dim">
+                LINK
+              </span>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor
+                className="px-3 py-2 text-paper underline-offset-4 hover:bg-accent hover:text-ink hover:no-underline"
+              >
+                {project.link.replace(/^https?:\/\//, '')} ↗
+              </a>
+            </div>
+          )}
+          <div className="flex">
+            <span className="w-20 border-r border-line px-3 py-2 text-dim">
+              REV
+            </span>
+            <span className="px-3 py-2 text-paper">2026.09</span>
+          </div>
+        </div>
+
+        <article
+          className="prose-dark mt-12"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      </div>
     </main>
   );
 }

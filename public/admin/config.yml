@@ -54,6 +54,8 @@ collections:
       - { label: 链接, name: link, widget: string, required: false }
       - { label: 精选, name: featured, widget: boolean, default: false }
       - { label: 排序, name: order, widget: number, default: 99 }
+      - { label: 画布坐标 X, name: x, widget: number, default: 0 }
+      - { label: 画布坐标 Y, name: y, widget: number, default: 0 }
       - { label: 正文, name: body, widget: markdown }
 
   - name: experience

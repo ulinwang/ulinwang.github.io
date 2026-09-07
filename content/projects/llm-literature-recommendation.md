@@ -6,6 +6,8 @@ tags:
   - 推荐系统
 featured: false
 order: 6
+x: 1260
+y: 580
 ---
 
 ## 项目简介

@@ -7,6 +7,8 @@ tags:
 link: https://github.com/ulinwang/kimusic
 featured: false
 order: 8
+x: 1000
+y: 880
 ---
 
 ## 项目简介

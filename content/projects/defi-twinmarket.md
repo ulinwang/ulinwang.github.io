@@ -6,6 +6,8 @@ tags:
   - DeFi
   - 学术研究
 featured: true
+title_en: 'DeFi-TwinMarket — Undergraduate Thesis'
+description_en: 'A TwinMarket (NeurIPS 2025) fork for DeFi: synthetic indices across 10 DeFi sectors, AMM constant-product matching, DeFiLlama/Dune data calibration, ablation and rumor-shock experiments, stylized-facts tests.'
 order: 2
 x: 600
 y: 60

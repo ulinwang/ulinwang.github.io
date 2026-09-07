@@ -6,6 +6,8 @@ tags:
   - Neo4j
   - LangChain
 featured: false
+title_en: 'Xuehai Lingshu — Competency-Graph Education Navigator'
+description_en: 'Project lead: Scrapy job-data crawling plus LLM skill extraction into a 71-node / 79-edge competency graph; Neo4j + LangChain dual-agent with Gradio/D3.js interactive visualization.'
 order: 4
 x: 220
 y: 540

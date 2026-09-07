@@ -1,5 +1,11 @@
 ---
 title: 简介
+body_en: |
+  Hi, I'm **UlinWang (王友林)**, an AI product manager and full-stack developer.
+
+  I studied **Information Management at Nanjing University** and I'm now a **master's student at The Chinese University of Hong Kong, Shenzhen (Class of 2028)**. I previously interned as an AI PM at **Kimi (Moonshot AI)** and **Eastmoney**, focusing on LLM applications, multi-agent systems, and data-driven product design.
+
+  I believe the best products are built where technology meets user insight — this site documents that journey.
 ---
 
 你好，我是**王友林（UlinWang）**，一名 AI 产品经理与全栈开发者。

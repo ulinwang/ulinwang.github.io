@@ -22,14 +22,17 @@ const versionOf = (period: string) => {
 
 export default async function IntroPage() {
   const intro = getIntro();
-  const introHtml = await markdownToHtml(intro.body);
+  const introHtmlZh = await markdownToHtml(intro.body);
+  const introHtmlEn = await markdownToHtml(intro.bodyEn);
 
   const experience = await Promise.all(
     getExperience().map(async (item) => ({
       version: versionOf(item.period),
       period: item.period,
       title: item.company,
+      titleEn: item.companyEn,
       subtitle: item.role,
+      subtitleEn: item.roleEn,
       html: await markdownToHtml(item.body),
     })),
   );
@@ -39,16 +42,18 @@ export default async function IntroPage() {
       version: versionOf(item.period),
       period: item.period,
       title: item.school,
+      titleEn: item.schoolEn,
       subtitle: item.degree,
+      subtitleEn: item.degreeEn,
       html: await markdownToHtml(item.body),
     })),
   );
 
   return (
     <main className="min-h-screen">
-      <Intro html={introHtml} />
-      <Changelog index="02" title="工作经历" entries={experience} />
-      <Changelog index="03" title="教育经历" entries={education} />
+      <Intro htmlZh={introHtmlZh} htmlEn={introHtmlEn} />
+      <Changelog index="02" titleKey="experience" entries={experience} />
+      <Changelog index="03" titleKey="education" entries={education} />
     </main>
   );
 }

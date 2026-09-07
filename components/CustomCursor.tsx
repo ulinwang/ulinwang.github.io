@@ -51,10 +51,7 @@ export default function CustomCursor() {
       if (hRef.current) hRef.current.style.transform = `translateY(${curY}px)`;
       if (boxRef.current) {
         boxRef.current.style.transform = `translate(${curX}px, ${curY}px) translate(-50%, -50%)`;
-        boxRef.current.style.backgroundColor = hovering
-          ? '#B8FF2E'
-          : 'transparent';
-        boxRef.current.style.borderColor = hovering ? '#B8FF2E' : '#E8E8E8';
+        boxRef.current.classList.toggle('cursor-hover', hovering);
       }
       if (readoutRef.current) {
         readoutRef.current.style.transform = `translate(${curX + 14}px, ${curY + 14}px)`;

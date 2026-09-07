@@ -6,6 +6,8 @@ tags:
   - RAG
   - Neo4j
 featured: false
+title_en: 'StdKG — Standards Knowledge Graph & RAG QA'
+description_en: 'A standards-domain knowledge graph of ~22k nodes / 57k edges in Neo4j, with a Gradio RAG interface and an authored survey on standards knowledge graphs.'
 order: 5
 x: 760
 y: 500

@@ -14,7 +14,8 @@ export default function AboutPage() {
     <main className="min-h-screen">
       <About
         title={about.title}
-        body={about.body}
+        bodyZh={about.body}
+        bodyEn={about.bodyEn}
         github={about.github}
         email={about.email}
         xhs={about.xhs}

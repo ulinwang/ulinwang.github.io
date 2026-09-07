@@ -38,7 +38,7 @@ npm run dev        # http://localhost:3000
 1. 把仓库 push 到 GitHub。
 2. 在 [Vercel](https://vercel.com) 导入该 GitHub 仓库（Framework Preset 会自动识别 Next.js，Build Command `next build`，无需额外配置）。
 3. 每次 push 到 `main` 自动触发部署。
-4. 记下 Vercel 分配的域名（如 `https://xxx.vercel.app`），下面配置 CMS OAuth 要用。
+4. 站点域名：`https://ulinwanggithubio.vercel.app`（`public/admin/config.yml` 的 `base_url` 已指向它）。
 
 ## 内容编辑（Decap CMS）
 
@@ -49,14 +49,13 @@ npm run dev        # http://localhost:3000
 Vercel 部署包含 `app/api/auth` 与 `app/api/callback` 两个 serverless functions，作为 Decap 的 GitHub OAuth provider。一次性配置：
 
 1. GitHub → **Settings → Developer settings → OAuth Apps → New OAuth App**：
-   - **Homepage URL**：`https://<你的 Vercel 域名>`
-   - **Authorization callback URL**：`https://<你的 Vercel 域名>/api/callback`
+   - **Homepage URL**：`https://ulinwanggithubio.vercel.app`
+   - **Authorization callback URL**：`https://ulinwanggithubio.vercel.app/api/callback`
 2. 创建后得到 **Client ID**，并生成 **Client Secret**。
 3. Vercel 项目 → **Settings → Environment Variables**，添加：
    - `GITHUB_CLIENT_ID` = OAuth App 的 Client ID
    - `GITHUB_CLIENT_SECRET` = OAuth App 的 Client Secret
-4. 把 `public/admin/config.yml` 中 backend 的 `base_url` 从占位值 `https://ulinwang.vercel.app` 改为实际 Vercel 域名。
-5. Redeploy。之后访问 `https://<域名>/admin/`，点「Login with GitHub」即可在线编辑，保存会直接提交到 GitHub 仓库并触发重新部署。
+4. Redeploy。之后访问 `https://ulinwanggithubio.vercel.app/admin/`，点「Login with GitHub」即可在线编辑，保存会直接提交到 GitHub 仓库并触发重新部署。
 
 ### 本地编辑（免 OAuth）
 

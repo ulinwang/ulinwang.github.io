@@ -2,13 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---- 双主题设计变量：DARK = 近黑图纸，LIGHT = 图纸白 ---- */
 :root {
   --bg: #0e0e0e;
+  --bg-soft: #141414;
   --paper: #e8e8e8;
   --dim: #6b6b6b;
-  --accent: #b8ff2e;
+  --accent: #b450b0; /* 南大紫亮色变体（近黑底对比） */
+  --accent-ink: #ffffff;
   --line: rgba(255, 255, 255, 0.08);
   --line-soft: rgba(255, 255, 255, 0.04);
+  --dot: rgba(255, 255, 255, 0.07);
+  --prose: #b9b9bd;
+}
+
+html[data-theme='light'] {
+  --bg: #f2efe8;
+  --bg-soft: #eae6dd;
+  --paper: #1a1815;
+  --dim: #7a736a;
+  --accent: #6a005f; /* 南大校本色 */
+  --accent-ink: #ffffff;
+  --line: rgba(26, 24, 21, 0.18);
+  --line-soft: rgba(26, 24, 21, 0.09);
+  --dot: rgba(26, 24, 21, 0.12);
+  --prose: #45413a;
 }
 
 html {
@@ -33,23 +51,23 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--accent-ink);
 }
 
 /* 点阵网格背景 */
 .bg-dotgrid {
-  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .bg-dotgrid-soft {
-  background-image: radial-gradient(var(--line-soft) 1px, transparent 1px);
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 /* 描边空心大字 */
 .text-outline {
-  -webkit-text-stroke: 1px rgba(232, 232, 232, 0.35);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--paper) 40%, transparent);
   color: transparent;
 }
 
@@ -72,14 +90,14 @@ body {
 .prose-dark p {
   margin: 0.9rem 0;
   line-height: 1.9;
-  color: #b9b9bd;
+  color: var(--prose);
 }
 
 .prose-dark ul {
   margin: 0.9rem 0;
   padding-left: 1.25rem;
   list-style: square;
-  color: #b9b9bd;
+  color: var(--prose);
   line-height: 1.9;
 }
 
@@ -115,6 +133,16 @@ body {
   letter-spacing: 0.2em;
   color: var(--dim);
   margin-top: 6px;
+}
+
+html[data-lang='zh'] .prose-dark p:has(img)::after {
+  content: '图.' counter(fig, decimal-leading-zero);
+}
+
+/* 十字线光标悬停态 */
+.cursor-hover {
+  background: var(--accent);
+  border-color: var(--accent) !important;
 }
 
 /* 细滚动条 */

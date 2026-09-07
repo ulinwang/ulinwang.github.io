@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import gsap from 'gsap';
 import type { ProjectMeta } from '@/lib/content';
+import { useUiPrefs } from '@/components/UiPrefs';
 
 const WORLD_W = 1800;
 const WORLD_H = 1100;
@@ -25,6 +26,7 @@ const clamp = (v: number, lo: number, hi: number) =>
  */
 export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
   const router = useRouter();
+  const { t, lang } = useUiPrefs();
   const viewportRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
   const mapViewRef = useRef<HTMLDivElement>(null);
@@ -255,7 +257,7 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
     return (
       <main className="min-h-screen px-6 pb-24 pt-24">
         <p className="font-mono text-[11px] tracking-[0.3em] text-dim">
-          WORKS / 索引（触屏列表模式）
+          {t.works.listMode}
         </p>
         <div className="mt-6 border-t border-line">
           {projects.map((p) => (
@@ -284,7 +286,7 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
         ref={hintRef}
         className="pointer-events-none absolute left-1/2 top-20 z-20 -translate-x-1/2 border border-line bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] text-dim transition-opacity duration-500"
       >
-        DRAG TO PAN / SCROLL TO ZOOM / DOUBLE-CLICK TO OPEN
+        {t.works.hint}
       </div>
 
       {/* 视口 */}
@@ -305,7 +307,7 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
         >
           {/* 世界平面标尺文字 */}
           <span className="absolute left-2 top-2 font-mono text-[10px] tracking-[0.3em] text-dim">
-            SHEET A-01 / WORKS FIELD
+            {t.works.sheet}
           </span>
           <span className="absolute bottom-2 right-2 font-mono text-[10px] tracking-[0.3em] text-dim">
             {WORLD_W}×{WORLD_H}
@@ -323,7 +325,7 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
               style={{ left: p.x, top: p.y, width: NODE_W }}
             >
               <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.2em] text-dim group-hover:text-ink">
-                <span className={p.featured ? 'bg-accent px-1 text-ink' : ''}>
+                <span className={p.featured ? 'bg-accent px-1 text-white' : ''}>
                   P.{pad(p.order)}
                 </span>
                 <span>
@@ -331,15 +333,15 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
                 </span>
               </div>
               <h2 className="mt-2 font-display text-sm font-bold leading-snug group-hover:text-ink">
-                {p.title}
+                {lang === 'en' ? p.titleEn : p.title}
               </h2>
               {/* hover 浮层：简介 */}
               <div className="mt-2 hidden border-t border-line pt-2 group-hover:block">
                 <p className="text-[11px] leading-relaxed text-dim group-hover:text-ink">
-                  {p.description}
+                  {lang === 'en' ? p.descriptionEn : p.description}
                 </p>
                 <p className="mt-2 font-mono text-[9px] tracking-[0.25em] text-accent group-hover:text-ink">
-                  DOUBLE-CLICK TO OPEN ↗
+                  {t.works.open}
                 </p>
               </div>
             </div>
@@ -349,12 +351,12 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
 
       {/* 左下缩放比例尺 */}
       <div className="absolute bottom-8 left-6 z-20 border border-line bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.25em] text-dim">
-        ZOOM <span ref={scaleLabelRef} className="text-paper">85%</span>
+        {t.works.zoom} <span ref={scaleLabelRef} className="text-paper">85%</span>
       </div>
 
       {/* 右下 minimap */}
       <div
-        className="absolute bottom-8 right-6 z-20 border border-line bg-ink/90"
+        className="absolute bottom-8 right-6 z-20 border border-line bg-ink"
         style={{ width: MAP_W, height: MAP_H }}
       >
         <div className="relative h-full w-full overflow-hidden">

@@ -1,7 +1,6 @@
 # Decap CMS 配置
 # 本地编辑：运行 `npx decap-server`，取消注释 local_backend，访问 http://localhost:3000/admin/
-# 线上编辑：部署到 Vercel 后配置 GitHub OAuth（见 README），
-#           并把下面的 base_url 替换为实际 Vercel 域名
+# 线上编辑：GitHub OAuth 已接入 app/api/auth 与 app/api/callback（配置步骤见 README）
 
 # local_backend: true
 
@@ -9,7 +8,6 @@ backend:
   name: github
   repo: ulinwang/ulinwang.github.io
   branch: main
-  # TODO: 上线后替换为实际 Vercel 域名（对应 app/api/auth 与 app/api/callback）
   base_url: https://ulinwanggithubio.vercel.app
   auth_endpoint: api/auth
 
@@ -26,6 +24,7 @@ collections:
         fields:
           - { label: 标题, name: title, widget: string }
           - { label: 正文, name: body, widget: markdown }
+          - { label: 正文（英文）, name: body_en, widget: markdown, required: false }
       - name: about
         label: 关于我
         file: content/site/about.md
@@ -35,6 +34,7 @@ collections:
           - { label: 邮箱, name: email, widget: string }
           - { label: 小红书链接, name: xhs, widget: string }
           - { label: 正文, name: body, widget: markdown }
+          - { label: 正文（英文）, name: body_en, widget: markdown, required: false }
 
   - name: projects
     label: 作品集
@@ -46,7 +46,9 @@ collections:
     sortable_fields: [order, title]
     fields:
       - { label: 标题, name: title, widget: string }
+      - { label: 标题（英文）, name: title_en, widget: string, required: false }
       - { label: 描述, name: description, widget: text }
+      - { label: 描述（英文）, name: description_en, widget: text, required: false }
       - label: 标签
         name: tags
         widget: list
@@ -68,7 +70,9 @@ collections:
     sortable_fields: [order, company]
     fields:
       - { label: 公司, name: company, widget: string }
+      - { label: 公司（英文）, name: company_en, widget: string, required: false }
       - { label: 职位, name: role, widget: string }
+      - { label: 职位（英文）, name: role_en, widget: string, required: false }
       - { label: 时间段, name: period, widget: string }
       - { label: 排序, name: order, widget: number, default: 99 }
       - { label: 工作内容, name: body, widget: markdown }
@@ -83,7 +87,9 @@ collections:
     sortable_fields: [order, school]
     fields:
       - { label: 学校, name: school, widget: string }
+      - { label: 学校（英文）, name: school_en, widget: string, required: false }
       - { label: 学位, name: degree, widget: string }
+      - { label: 学位（英文）, name: degree_en, widget: string, required: false }
       - { label: 时间段, name: period, widget: string }
       - { label: 排序, name: order, widget: number, default: 99 }
       - { label: 详情, name: body, widget: markdown }

@@ -1,39 +1,39 @@
 'use client';
 
 import Reveal from '@/components/Reveal';
+import { useUiPrefs } from '@/components/UiPrefs';
 
 interface AboutProps {
   title: string;
-  body: string;
+  bodyZh: string;
+  bodyEn: string;
   github: string;
   email: string;
   xhs: string;
 }
 
 /**
- * /about = 接口文档：社媒链接做成 API ENDPOINTS 式列表，
+ * /about = 接口文档：社媒链接做成 ENDPOINTS 式列表，
  * 等宽大字，悬停整行反色。
  */
-export default function About({ title, body, github, email, xhs }: AboutProps) {
+export default function About({ title, bodyZh, bodyEn, github, email, xhs }: AboutProps) {
+  const { t, lang } = useUiPrefs();
   const endpoints = [
     {
       method: 'GET',
       path: 'github.com/ulinwang',
-      note: '代码与项目',
       href: github,
       external: true,
     },
     {
       method: 'POST',
       path: `mailto:${email}`,
-      note: '直接写信',
       href: `mailto:${email}`,
       external: false,
     },
     {
       method: 'GET',
       path: 'xiaohongshu.com',
-      note: '日常与笔记',
       href: xhs,
       external: true,
     },
@@ -43,20 +43,22 @@ export default function About({ title, body, github, email, xhs }: AboutProps) {
     <section className="mx-auto max-w-4xl px-6 pb-32 pt-32 sm:px-10">
       <Reveal>
         <div className="flex items-baseline gap-4 border-t border-line pt-4">
-          <span className="bg-accent px-1.5 py-0.5 font-mono text-[11px] font-medium tracking-[0.2em] text-ink">
-            SEC.01
+          <span className="bg-accent px-1.5 py-0.5 font-mono text-[11px] font-medium tracking-[0.2em] text-white">
+            {t.sec.prefix}01
           </span>
           <h2 className="font-display text-2xl font-bold tracking-tight md:text-3xl">
-            {title}
+            {lang === 'en' ? 'ABOUT' : title}
           </h2>
           <span className="font-mono text-[10px] tracking-[0.25em] text-dim">
-            ENDPOINTS
+            {t.about.note}
           </span>
         </div>
       </Reveal>
 
       <Reveal delay={0.1}>
-        <p className="mt-8 max-w-xl leading-loose text-dim">{body.trim()}</p>
+        <p className="mt-8 max-w-xl leading-loose text-dim">
+          {(lang === 'en' ? bodyEn : bodyZh).trim()}
+        </p>
       </Reveal>
 
       <div className="mt-12 border-b border-line">
@@ -76,7 +78,7 @@ export default function About({ title, body, github, email, xhs }: AboutProps) {
                 {ep.path}
               </span>
               <span className="ml-auto font-mono text-[10px] tracking-[0.2em] text-dim group-hover:text-ink">
-                {ep.note} ↗
+                {t.about.endpoints[i].note}
               </span>
             </a>
           </Reveal>
@@ -85,7 +87,7 @@ export default function About({ title, body, github, email, xhs }: AboutProps) {
 
       <Reveal delay={0.4}>
         <p className="mt-8 font-mono text-[10px] tracking-[0.3em] text-dim">
-          RESPONSE TIME: &lt; 48H / TIMEZONE: UTC+8
+          {t.about.response}
         </p>
       </Reveal>
     </section>

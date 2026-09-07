@@ -7,6 +7,8 @@ tags:
   - 产品化
 link: https://github.com/ulinwang/cuhk-sis-nova
 featured: true
+title_en: 'SIS Nova — CUHKSZ Course Helper Chrome Extension'
+description_en: 'MV3 + WXT + TypeScript course-planning workbench: course search & compare, cart sync, weekly timetable conflict detection. v1.0.0 officially released.'
 order: 3
 x: 1140
 y: 160

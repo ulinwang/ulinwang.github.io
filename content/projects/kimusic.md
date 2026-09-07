@@ -6,6 +6,8 @@ tags:
   - Python
 link: https://github.com/ulinwang/kimusic
 featured: false
+title_en: 'kimusic — AI Music Production Pipeline'
+description_en: 'A five-step concept-to-blueprint-to-code-to-MP3 workflow; MIDI generation rendered through FluidSynth/FFmpeg.'
 order: 8
 x: 1000
 y: 880

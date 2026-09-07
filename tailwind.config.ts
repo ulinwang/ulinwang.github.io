@@ -5,16 +5,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#0E0E0E',
-        'ink-soft': '#141414',
-        paper: '#E8E8E8',
-        dim: '#6B6B6B',
+        ink: 'var(--bg)',
+        'ink-soft': 'var(--bg-soft)',
+        paper: 'var(--paper)',
+        dim: 'var(--dim)',
         accent: {
-          DEFAULT: '#B8FF2E',
-          cyan: '#B8FF2E', // 兼容旧类名，统一荧光绿
+          DEFAULT: 'var(--accent)',
+          cyan: 'var(--accent)', // 兼容旧类名
         },
-        line: 'rgba(255,255,255,0.08)',
-        'line-soft': 'rgba(255,255,255,0.04)',
+        line: 'var(--line)',
+        'line-soft': 'var(--line-soft)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],

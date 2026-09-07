@@ -2,6 +2,8 @@
 company: 月之暗面 Kimi
 role: 产品经理（业务增长方向）
 period: 2025.12—2026.06
+company_en: 'Moonshot AI — Kimi'
+role_en: 'Product Manager, Growth'
 order: 1
 ---
 

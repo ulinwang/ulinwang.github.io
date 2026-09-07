@@ -1,9 +1,13 @@
+'use client';
+
+import { useUiPrefs } from '@/components/UiPrefs';
+
 /**
- * 全局图框：页面四周 1px 边框 + 四角坐标十字 + 修订号标注。
+ * 全局图框：页面四周 1px 边框 + 四角坐标十字 + 底部标注。
  * 纯装饰，pointer-events-none，位于内容之上、导航之下。
- * （右上角不放文字标注，避免与各页导航/画布 UI 重叠；REV 移到右下内边距区）
  */
 export default function Frame() {
+  const { t } = useUiPrefs();
   return (
     <div
       aria-hidden
@@ -26,12 +30,11 @@ export default function Frame() {
       ))}
       {/* 图框标注（仅底边，远离顶部导航与画布 UI） */}
       <span className="absolute bottom-5 left-6 font-mono text-[9px] tracking-[0.25em] text-dim">
-        SCALE 1:1
+        {t.frame.scale}
       </span>
       <span className="absolute bottom-5 left-32 font-mono text-[9px] tracking-[0.25em] text-dim">
-        REV.2026.09
+        {t.frame.rev}
       </span>
     </div>
   );
 }
-

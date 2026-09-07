@@ -2,6 +2,8 @@
 company: 东方财富 · 天天基金
 role: AI 产品经理
 period: 2025.09—2025.11
+company_en: 'Eastmoney — Tiantian Fund'
+role_en: 'AI Product Manager'
 order: 2
 ---
 

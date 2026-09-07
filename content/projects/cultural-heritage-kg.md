@@ -6,6 +6,8 @@ tags:
   - MongoDB
   - 知识图谱
 featured: false
+title_en: 'Cultural Heritage Knowledge Graph & Data Analysis'
+description_en: 'NJU Arts & Cultural Creativity Lab: artifact data from six museums with MongoDB ETL, four-dimension cloud-pattern analytics, MMDetection image recognition, KG4Story graph with RAG docs, digital exhibition launch, ChinaVISAP 2025 entry.'
 order: 7
 x: 460
 y: 900

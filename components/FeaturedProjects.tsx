@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import type { ProjectMeta } from '@/lib/content';
 import Reveal from '@/components/Reveal';
+import { useUiPrefs } from '@/components/UiPrefs';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -9,6 +12,7 @@ export default function FeaturedProjects({
 }: {
   projects: ProjectMeta[];
 }) {
+  const { t, lang } = useUiPrefs();
   return (
     <section
       id="featured"
@@ -17,14 +21,14 @@ export default function FeaturedProjects({
       <Reveal>
         <div className="flex items-baseline justify-between">
           <p className="font-mono text-[11px] tracking-[0.3em] text-dim">
-            SELECTED WORKS / 精选
+            {t.featured.label}
           </p>
           <Link
             href="/projects"
             data-cursor
-            className="font-mono text-[11px] tracking-[0.3em] text-paper underline-offset-4 hover:bg-accent hover:text-ink hover:no-underline"
+            className="font-mono text-[11px] tracking-[0.3em] text-paper underline-offset-4 hover:bg-accent hover:text-white hover:no-underline"
           >
-            VIEW ALL →
+            {t.featured.viewAll}
           </Link>
         </div>
       </Reveal>
@@ -37,13 +41,13 @@ export default function FeaturedProjects({
               className="group flex h-full flex-col bg-ink p-5 transition-colors hover:bg-paper"
             >
               <span className="font-mono text-[10px] tracking-[0.25em] text-dim group-hover:text-ink">
-                P.{pad(p.order)} / FIG.{pad(i + 1)}
+                P.{pad(p.order)} / {t.sec.prefix === '节.' ? '图' : 'FIG'}.{pad(i + 1)}
               </span>
               <span className="mt-3 font-display text-base font-bold leading-snug group-hover:text-ink">
-                {p.title}
+                {lang === 'en' ? p.titleEn : p.title}
               </span>
               <span className="mt-auto pt-4 font-mono text-[10px] tracking-widest text-dim group-hover:text-ink">
-                OPEN ↗
+                {t.featured.open}
               </span>
             </Link>
           </Reveal>

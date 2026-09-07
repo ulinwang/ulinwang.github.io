@@ -4,23 +4,25 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
-
-const TABS = [
-  { href: '/', label: 'INDEX', match: (p: string) => p === '/' },
-  { href: '/intro', label: 'INTRO', match: (p: string) => p === '/intro' },
-  {
-    href: '/projects',
-    label: 'WORKS',
-    match: (p: string) => p === '/projects' || p.startsWith('/projects/'),
-  },
-  { href: '/about', label: 'ABOUT', match: (p: string) => p === '/about' },
-];
+import { useUiPrefs } from '@/components/UiPrefs';
 
 export default function Navbar() {
   const headerRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
+  const { lang, theme, t, setLang, setTheme } = useUiPrefs();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const TABS = [
+    { href: '/', label: t.nav.index, match: (p: string) => p === '/' },
+    { href: '/intro', label: t.nav.intro, match: (p: string) => p === '/intro' },
+    {
+      href: '/projects',
+      label: t.nav.works,
+      match: (p: string) => p === '/projects' || p.startsWith('/projects/'),
+    },
+    { href: '/about', label: t.nav.about, match: (p: string) => p === '/about' },
+  ];
 
   useEffect(() => {
     gsap.ticker.lagSmoothing(0);
@@ -57,9 +59,53 @@ export default function Navbar() {
   const linkCls = (isActive: boolean) =>
     `inline-block px-2 py-1 font-mono text-[11px] tracking-[0.25em] transition-colors ${
       isActive
-        ? 'bg-accent text-ink'
+        ? 'bg-accent text-white'
         : 'text-dim hover:bg-paper hover:text-ink'
     }`;
+
+  const toggleBtn = (isActive: boolean) =>
+    `px-1.5 py-0.5 font-mono text-[10px] tracking-widest transition-colors ${
+      isActive ? 'bg-accent text-white' : 'text-dim hover:text-paper'
+    }`;
+
+  const controls = (
+    <>
+      {/* 语言切换 */}
+      <span className="flex border border-line" data-cursor>
+        <button
+          type="button"
+          onClick={() => setLang('zh')}
+          className={toggleBtn(lang === 'zh')}
+        >
+          中
+        </button>
+        <button
+          type="button"
+          onClick={() => setLang('en')}
+          className={toggleBtn(lang === 'en')}
+        >
+          EN
+        </button>
+      </span>
+      {/* 显示模式切换 */}
+      <span className="flex border border-line" data-cursor>
+        <button
+          type="button"
+          onClick={() => setTheme('dark')}
+          className={toggleBtn(theme === 'dark')}
+        >
+          DARK
+        </button>
+        <button
+          type="button"
+          onClick={() => setTheme('light')}
+          className={toggleBtn(theme === 'light')}
+        >
+          LIGHT
+        </button>
+      </span>
+    </>
+  );
 
   return (
     <header
@@ -74,44 +120,50 @@ export default function Navbar() {
           data-cursor
           className="font-mono text-xs font-bold tracking-[0.2em]"
         >
-          <span className="bg-accent px-1 text-ink">UW</span>
+          <span className="bg-accent px-1 text-white">UW</span>
           <span className="ml-2 hidden text-dim sm:inline">王友林</span>
         </Link>
 
-        {/* 桌面端 tabs */}
-        <ul className="hidden items-center gap-6 md:flex">
-          {TABS.map((tab) => (
-            <li key={tab.href}>
-              <Link
-                href={tab.href}
-                data-cursor
-                className={linkCls(tab.match(pathname))}
-              >
-                {tab.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {/* 桌面端 tabs + 控件 */}
+        <div className="hidden items-center gap-6 md:flex">
+          <ul className="flex items-center gap-6">
+            {TABS.map((tab) => (
+              <li key={tab.href}>
+                <Link
+                  href={tab.href}
+                  data-cursor
+                  className={linkCls(tab.match(pathname))}
+                >
+                  {tab.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="flex items-center gap-2">{controls}</div>
+        </div>
 
-        {/* 移动端汉堡按钮 */}
-        <button
-          type="button"
-          data-cursor
-          aria-label={menuOpen ? '关闭菜单' : '打开菜单'}
-          onClick={() => setMenuOpen((v) => !v)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-        >
-          <span
-            className={`h-px w-6 bg-paper transition-transform duration-200 ${
-              menuOpen ? 'translate-y-[3.5px] rotate-45' : ''
-            }`}
-          />
-          <span
-            className={`h-px w-6 bg-paper transition-transform duration-200 ${
-              menuOpen ? '-translate-y-[3.5px] -rotate-45' : ''
-            }`}
-          />
-        </button>
+        {/* 移动端：控件 + 汉堡 */}
+        <div className="flex items-center gap-2 md:hidden">
+          {controls}
+          <button
+            type="button"
+            data-cursor
+            aria-label={menuOpen ? '关闭菜单' : '打开菜单'}
+            onClick={() => setMenuOpen((v) => !v)}
+            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5"
+          >
+            <span
+              className={`h-px w-6 bg-paper transition-transform duration-200 ${
+                menuOpen ? 'translate-y-[3.5px] rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`h-px w-6 bg-paper transition-transform duration-200 ${
+                menuOpen ? '-translate-y-[3.5px] -rotate-45' : ''
+              }`}
+            />
+          </button>
+        </div>
       </nav>
 
       {/* 移动端菜单 */}

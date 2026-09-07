@@ -3,12 +3,14 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { scrollToSection } from '@/lib/scroll';
+import { useUiPrefs } from '@/components/UiPrefs';
 
 const NAME_CN = ['王', '友', '林'];
 const NAME_EN = 'ULINWANG';
 
 export default function Hero() {
   const rootRef = useRef<HTMLElement>(null);
+  const { t } = useUiPrefs();
 
   useEffect(() => {
     gsap.ticker.lagSmoothing(0);
@@ -62,7 +64,7 @@ export default function Hero() {
       <div className="hero-el absolute left-[8vw] top-[20vh] opacity-0">
         <span className="font-mono text-2xl text-dim">+</span>
         <span className="ml-3 font-mono text-[10px] tracking-[0.3em] text-dim">
-          ORIGIN / 0,0
+          {t.hero.origin}
         </span>
       </div>
 
@@ -79,20 +81,20 @@ export default function Hero() {
           {NAME_EN}
         </p>
         <p className="hero-el mt-6 font-mono text-xs tracking-[0.35em] text-accent opacity-0">
-          AI PRODUCT MANAGER × FULL-STACK DEVELOPER
+          {t.hero.role}
         </p>
         <p className="hero-el mt-2 text-sm text-dim opacity-0">
-          在大模型与真实世界的交叉点上构建产品
+          {t.hero.tagline}
         </p>
       </div>
 
       {/* 右下标题栏（title block） */}
       <div className="hero-el absolute bottom-[10vh] right-[5vw] border border-line bg-ink opacity-0">
         {[
-          ['NAME', '王友林 / ULINWANG'],
-          ['ROLE', 'AI PM × DEV'],
-          ['DATE', '2026-09-07'],
-          ['REV', '2026.09'],
+          [t.hero.block.name, '王友林 / ULINWANG'],
+          [t.hero.block.role, t.hero.block.roleValue],
+          [t.hero.block.date, '2026-09-07'],
+          [t.hero.block.rev, '2026.09'],
         ].map(([k, v]) => (
           <div
             key={k}
@@ -106,10 +108,10 @@ export default function Hero() {
         ))}
         <div className="flex font-mono text-[10px] tracking-wider">
           <span className="w-16 border-r border-line px-2 py-1.5 text-dim">
-            STATUS
+            {t.hero.block.status}
           </span>
-          <span className="bg-accent px-2 py-1.5 font-medium text-ink">
-            AVAILABLE
+          <span className="bg-accent px-2 py-1.5 font-medium text-white">
+            {t.hero.block.statusValue}
           </span>
         </div>
       </div>
@@ -120,9 +122,9 @@ export default function Hero() {
           type="button"
           data-cursor
           onClick={() => scrollToSection('#featured')}
-          className="group border border-line px-4 py-2 font-mono text-[11px] tracking-[0.25em] text-dim transition-colors hover:border-accent hover:text-accent"
+          className="border border-line px-4 py-2 font-mono text-[11px] tracking-[0.25em] text-dim transition-colors hover:border-accent hover:text-accent"
         >
-          SELECTED WORKS ↓
+          {t.hero.selectedWorks}
         </button>
       </div>
     </section>

@@ -2,6 +2,8 @@
 school: 南京大学
 degree: 信息管理与信息系统 · 本科
 period: 2022.09—2026.06
+school_en: 'Nanjing University'
+degree_en: 'B.Sc. Information Management & Information Systems'
 order: 1
 ---
 

@@ -9,6 +9,8 @@ tags:
   - Docker
 link: https://github.com/ulinwang/Poly
 featured: true
+title_en: 'Poly — LLM Multi-Agent Prediction Market Simulation'
+description_en: 'Productized platform from my undergraduate thesis: Python CLOB matching engine + real-time dashboard, 8 LLM providers behind one API, agent behavior calibrated on real Polymarket on-chain data.'
 order: 1
 x: 80
 y: 140

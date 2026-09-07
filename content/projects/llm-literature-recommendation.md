@@ -5,6 +5,8 @@ tags:
   - LLM 微调
   - 推荐系统
 featured: false
+title_en: 'LLM-Based Literature Recommendation Strategies'
+description_en: 'National student innovation program (rated Good): fine-tuned Qwen2.5-14B via LLaMA-Factory, prompt and positive/negative sampling strategies on citeulike-a, iterative Precision/Recall/F1 evaluation; agentic conversational recommendation.'
 order: 6
 x: 1260
 y: 580

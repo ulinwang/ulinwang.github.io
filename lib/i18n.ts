@@ -21,7 +21,7 @@ export interface UiDict {
   frame: { scale: string; rev: string };
   sec: { prefix: string };
   featured: { label: string; viewAll: string; open: string };
-  works: { hint: string; zoom: string; sheet: string; open: string; listMode: string };
+  works: { hint: string; zoom: string; sheet: string; open: string; listMode: string; reset: string };
   detail: { back: string; no: string; tags: string; link: string; rev: string };
   intro: { abstract: string; experience: string; education: string; changelog: string };
   about: { note: string; endpoints: { note: string }[]; response: string };
@@ -60,6 +60,7 @@ export const ui: Record<Lang, UiDict> = {
       sheet: '图纸 A-01 · 作品场',
       open: '双击打开 ↗',
       listMode: '作品集 / 索引（触屏列表模式）',
+      reset: '复位视图',
     },
     detail: {
       back: '← 返回作品集',
@@ -115,6 +116,7 @@ export const ui: Record<Lang, UiDict> = {
       sheet: 'SHEET A-01 / WORKS FIELD',
       open: 'DOUBLE-CLICK TO OPEN ↗',
       listMode: 'WORKS / INDEX (touch list mode)',
+      reset: 'RESET VIEW',
     },
     detail: {
       back: '← BACK TO WORKS',

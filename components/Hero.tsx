@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { scrollToSection } from '@/lib/scroll';
 import { useUiPrefs } from '@/components/UiPrefs';
+import BlueprintGL from '@/components/BlueprintGL';
 
 const NAME_CN = ['王', '友', '林'];
 const NAME_EN = 'ULINWANG';
@@ -60,6 +61,8 @@ export default function Hero() {
       ref={rootRef}
       className="bg-dotgrid-soft relative min-h-screen overflow-hidden"
     >
+      {/* WebGL 活图纸背景（失败/reduced-motion 时组件内部降级为静态点阵） */}
+      <BlueprintGL />
       {/* 左上十字准星 */}
       <div className="hero-el absolute left-[8vw] top-[20vh] opacity-0">
         <span className="font-mono text-2xl text-dim">+</span>

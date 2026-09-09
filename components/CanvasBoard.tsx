@@ -32,6 +32,7 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
   const mapViewRef = useRef<HTMLDivElement>(null);
   const scaleLabelRef = useRef<HTMLSpanElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
+  const resetRef = useRef<(() => void) | null>(null);
   const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [coarse, setCoarse] = useState<boolean | null>(null);
@@ -54,6 +55,13 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
     let scale = 0.85;
     let tx = (vw() - WORLD_W * scale) / 2;
     let ty = (vh() - WORLD_H * scale) / 2 + 24;
+
+    // 复位目标：初始位置、100% 缩放（重新居中）
+    const home = () => ({
+      scale: 1,
+      tx: (vw() - WORLD_W) / 2,
+      ty: (vh() - WORLD_H) / 2 + 24,
+    });
 
     const clampView = () => {
       const m = 200; // 允许越界拖动的余量
@@ -127,6 +135,11 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
     let inertiaRaf = 0;
     const pointers = new Map<number, { x: number; y: number }>();
     let pinchDist = 0;
+    // 单击/拖拽判定
+    let downX = 0;
+    let downY = 0;
+    let movedDist = 0;
+    let downSlug: string | null = null;
 
     const stopInertia = () => {
       cancelAnimationFrame(inertiaRaf);
@@ -136,9 +149,9 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
     const startInertia = () => {
       stopInertia();
       const step = () => {
-        velX *= 0.93;
-        velY *= 0.93;
-        if (Math.hypot(velX, velY) < 0.15) return;
+        velX *= 0.95;
+        velY *= 0.95;
+        if (Math.hypot(velX, velY) < 0.05) return;
         tx += velX;
         ty += velY;
         clampView();
@@ -147,6 +160,36 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
       };
       inertiaRaf = requestAnimationFrame(step);
     };
+
+    // 复位视图：动画回初始位置 + 100% 缩放；隐藏页直通终态 + 超时兜底
+    const resetView = () => {
+      stopInertia();
+      const target = home();
+      if (document.visibilityState === 'hidden') {
+        tx = target.tx;
+        ty = target.ty;
+        scale = target.scale;
+        apply();
+        return;
+      }
+      const proxy = { tx, ty, scale };
+      const tween = gsap.to(proxy, {
+        ...target,
+        duration: 0.5,
+        ease: 'power4.out',
+        onUpdate: () => {
+          tx = proxy.tx;
+          ty = proxy.ty;
+          scale = proxy.scale;
+          apply();
+        },
+      });
+      const safety = window.setTimeout(() => {
+        if (tween.progress() < 1) tween.progress(1);
+      }, 1200);
+      tween.eventCallback('onComplete', () => window.clearTimeout(safety));
+    };
+    resetRef.current = resetView;
 
     const zoomAt = (cx: number, cy: number, next: number) => {
       const newScale = clamp(next, MIN_SCALE, MAX_SCALE);
@@ -172,6 +215,13 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
         lastY = e.clientY;
         velX = 0;
         velY = 0;
+        downX = e.clientX;
+        downY = e.clientY;
+        movedDist = 0;
+        downSlug =
+          (e.target as HTMLElement)
+            .closest('[data-slug]')
+            ?.getAttribute('data-slug') ?? null;
       } else if (pointers.size === 2) {
         dragging = false;
         const [a, b] = [...pointers.values()];
@@ -200,8 +250,10 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
       const dy = e.clientY - lastY;
       lastX = e.clientX;
       lastY = e.clientY;
-      velX = dx;
-      velY = dy;
+      movedDist += Math.hypot(dx, dy);
+      // 指数平滑速度，惯性更顺
+      velX = velX * 0.7 + dx * 0.3;
+      velY = velY * 0.7 + dy * 0.3;
       tx += dx;
       ty += dy;
       clampView();
@@ -212,7 +264,16 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
       pointers.delete(e.pointerId);
       if (pointers.size === 0 && dragging) {
         dragging = false;
-        startInertia();
+        const isClick =
+          movedDist < 6 &&
+          Math.hypot(e.clientX - downX, e.clientY - downY) < 6 &&
+          downSlug;
+        if (isClick && downSlug) {
+          router.push(`/projects/${downSlug}`);
+        } else {
+          startInertia();
+        }
+        downSlug = null;
       }
       if (pointers.size < 2) pinchDist = 0;
     };
@@ -320,6 +381,7 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
                 nodeRefs.current[i] = el;
               }}
               data-cursor
+              data-slug={p.slug}
               onDoubleClick={() => router.push(`/projects/${p.slug}`)}
               className="group absolute border border-line bg-ink p-3 opacity-0 transition-colors hover:border-accent hover:bg-paper"
               style={{ left: p.x, top: p.y, width: NODE_W }}
@@ -349,9 +411,22 @@ export default function CanvasBoard({ projects }: { projects: ProjectMeta[] }) {
         </div>
       </div>
 
-      {/* 左下缩放比例尺 */}
-      <div className="absolute bottom-8 left-6 z-20 border border-line bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.25em] text-dim">
-        {t.works.zoom} <span ref={scaleLabelRef} className="text-paper">85%</span>
+      {/* 左下：缩放比例尺 + 复位按钮 */}
+      <div className="absolute bottom-8 left-6 z-20 flex items-center gap-2">
+        <div className="border border-line bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.25em] text-dim">
+          {t.works.zoom}{' '}
+          <span ref={scaleLabelRef} className="text-paper">
+            85%
+          </span>
+        </div>
+        <button
+          type="button"
+          data-cursor
+          onClick={() => resetRef.current?.()}
+          className="border border-line bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.25em] text-dim transition-colors hover:bg-accent hover:text-white"
+        >
+          {t.works.reset}
+        </button>
       </div>
 
       {/* 右下 minimap */}

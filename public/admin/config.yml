@@ -8,7 +8,7 @@ backend:
   name: github
   repo: ulinwang/ulinwang.github.io
   branch: main
-  base_url: https://ulinwanggithubio.vercel.app
+  base_url: https://youlinwang.vercel.app
   auth_endpoint: api/auth
 
 media_folder: public/uploads

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark" data-lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>数据看板 / Dashboard — UlinWang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0e0e0e;
+        --bg-soft: #141414;
+        --paper: #e8e8e8;
+        --dim: #6b6b6b;
+        --accent: #b450b0;
+        --line: rgba(255, 255, 255, 0.08);
+        --line-soft: rgba(255, 255, 255, 0.04);
+        --dot: rgba(255, 255, 255, 0.07);
+      }
+      html[data-theme='light'] {
+        --bg: #f2efe8;
+        --bg-soft: #eae6dd;
+        --paper: #1a1815;
+        --dim: #7a736a;
+        --accent: #6a005f;
+        --line: rgba(26, 24, 21, 0.18);
+        --line-soft: rgba(26, 24, 21, 0.09);
+        --dot: rgba(26, 24, 21, 0.12);
+      }
+      * { box-sizing: border-box; margin: 0; }
+      body {
+        background: var(--bg);
+        color: var(--paper);
+        font-family: 'Noto Sans SC', system-ui, sans-serif;
+        background-image: radial-gradient(var(--line) 1px, transparent 1px);
+        background-size: 32px 32px;
+        min-height: 100vh;
+      }
+      .mono { font-family: 'JetBrains Mono', monospace; }
+      .display { font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif; }
+
+      header {
+        position: sticky; top: 0; z-index: 10;
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px; padding: 0 24px;
+        border-bottom: 1px solid var(--line);
+        background: var(--bg);
+      }
+      .logo { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; }
+      .logo .uw { background: var(--accent); color: #fff; padding: 1px 5px; }
+      .controls { display: flex; gap: 8px; align-items: center; }
+      .controls a, .tgl {
+        font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
+        border: 1px solid var(--line); background: transparent; color: var(--dim);
+        padding: 4px 8px; text-decoration: none; cursor: pointer;
+      }
+      .tgl.on, .controls a:hover, .tgl:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+      main { max-width: 1000px; margin: 0 auto; padding: 48px 24px 96px; }
+      .sec-head { display: flex; align-items: baseline; gap: 16px; border-top: 1px solid var(--line); padding-top: 14px; }
+      .sec-badge { background: var(--accent); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; padding: 2px 7px; }
+      h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
+      .sec-note { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--dim); }
+
+      .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 32px; }
+      .card { background: var(--bg); padding: 20px; }
+      .card .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--dim); }
+      .card .v { font-family: 'Space Grotesk', monospace; font-size: 42px; font-weight: 700; margin-top: 8px; letter-spacing: -0.02em; }
+      .card .v.accent { color: var(--accent); }
+
+      .panel { border: 1px solid var(--line); margin-top: 32px; }
+      .panel > .ph { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--dim); }
+      .panel .pb { padding: 16px; }
+      svg.trend { display: block; width: 100%; height: 220px; }
+
+      table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+      th { text-align: left; font-size: 10px; letter-spacing: 0.25em; color: var(--dim); font-weight: 400; padding: 8px 16px; border-bottom: 1px solid var(--line); }
+      td { padding: 10px 16px; border-bottom: 1px solid var(--line-soft); }
+      tr:last-child td { border-bottom: none; }
+      td.num { color: var(--accent); }
+
+      .setup { border: 1px solid var(--line); margin-top: 32px; padding: 32px; }
+      .setup h2 { font-size: 18px; margin-bottom: 12px; }
+      .setup p, .setup li { color: var(--dim); line-height: 1.9; font-size: 14px; }
+      .setup code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); }
+      .setup ol { padding-left: 20px; margin-top: 8px; }
+      .missing { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); margin: 12px 0; }
+
+      footer { border-top: 1px solid var(--line); padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--dim); }
+      @media (max-width: 760px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="logo"><span class="uw">UW</span>&nbsp;&nbsp;<span id="hd-title">数据看板</span></span>
+      <span class="controls">
+        <a href="/admin/" id="lnk-cms">← 返回 CMS</a>
+        <button class="tgl" id="btn-zh" type="button">中</button>
+        <button class="tgl" id="btn-en" type="button">EN</button>
+        <button class="tgl" id="btn-dark" type="button">DARK</button>
+        <button class="tgl" id="btn-light" type="button">LIGHT</button>
+      </span>
+    </header>
+
+    <main>
+      <div class="sec-head">
+        <span class="sec-badge" id="sec-badge">节.01</span>
+        <h1 id="h1">站点数据</h1>
+        <span class="sec-note" id="sec-note">近 30 天 · GA4</span>
+      </div>
+
+      <div id="content">
+        <div class="panel"><div class="ph"><span>STATUS</span></div><div class="pb mono" style="font-size:12px;color:var(--dim)" id="loading">LOADING…</div></div>
+      </div>
+    </main>
+
+    <footer class="mono">UW ANALYTICS · GA4 DATA API · CACHE 5MIN</footer>
+
+    <script>
+      (function () {
+        // ---- 偏好（与主站 localStorage 共享）----
+        var root = document.documentElement;
+        try {
+          var l = localStorage.getItem('ui-lang');
+          var th = localStorage.getItem('ui-theme');
+          if (l) root.dataset.lang = l;
+          if (th) root.dataset.theme = th;
+        } catch (e) {}
+
+        var I18N = {
+          zh: {
+            title: '数据看板', h1: '站点数据', note: '近 30 天 · GA4', badge: '节.01', cms: '← 返回 CMS',
+            pv: '页面浏览量', ss: '会话数', au: '活跃用户', rt: '实时在线',
+            trend: '按天趋势 · PAGEVIEWS', top: 'TOP 页面 · 30D', path: '路径', views: '浏览量',
+            setupT: '待配置：GA4 Data API 未启用',
+            setupP: '看板需要以下环境变量（Vercel → Settings → Environment Variables）：',
+            setupSteps: ['在 Google Cloud 创建服务账号并启用 Google Analytics Data API', '把服务账号邮箱加为 GA4 媒体资源的「查看者」', '在 Vercel 配置 GA_PROPERTY_ID / GA_CLIENT_EMAIL / GA_PRIVATE_KEY 后重新部署'],
+            missing: '缺失变量：', reload: '配置完成后刷新本页。',
+            failed: '查询失败：', loading: 'LOADING…', range: '近 30 天',
+          },
+          en: {
+            title: 'DASHBOARD', h1: 'SITE ANALYTICS', note: 'LAST 30 DAYS · GA4', badge: 'SEC.01', cms: '← BACK TO CMS',
+            pv: 'PAGE VIEWS', ss: 'SESSIONS', au: 'ACTIVE USERS', rt: 'ONLINE NOW',
+            trend: 'DAILY TREND · PAGEVIEWS', top: 'TOP PAGES · 30D', path: 'PATH', views: 'VIEWS',
+            setupT: 'SETUP REQUIRED: GA4 Data API not configured',
+            setupP: 'The dashboard needs these env vars (Vercel → Settings → Environment Variables):',
+            setupSteps: ['Create a service account in Google Cloud and enable the Google Analytics Data API', 'Add the service account email as a Viewer of the GA4 property', 'Set GA_PROPERTY_ID / GA_CLIENT_EMAIL / GA_PRIVATE_KEY in Vercel and redeploy'],
+            missing: 'Missing: ', reload: 'Reload this page after configuring.',
+            failed: 'Query failed: ', loading: 'LOADING…', range: 'LAST 30 DAYS',
+          },
+        };
+        var lang = root.dataset.lang === 'en' ? 'en' : 'zh';
+
+        function paintPrefs() {
+          document.getElementById('btn-zh').className = 'tgl' + (lang === 'zh' ? ' on' : '');
+          document.getElementById('btn-en').className = 'tgl' + (lang === 'en' ? ' on' : '');
+          document.getElementById('btn-dark').className = 'tgl' + (root.dataset.theme !== 'light' ? ' on' : '');
+          document.getElementById('btn-light').className = 'tgl' + (root.dataset.theme === 'light' ? ' on' : '');
+          var t = I18N[lang];
+          document.getElementById('hd-title').textContent = t.title;
+          document.getElementById('lnk-cms').textContent = t.cms;
+          document.getElementById('sec-badge').textContent = t.badge;
+          document.getElementById('h1').textContent = t.h1;
+          document.getElementById('sec-note').textContent = t.note;
+          document.title = t.title + ' — UlinWang';
+        }
+        document.getElementById('btn-zh').onclick = function () { lang = 'zh'; root.dataset.lang = 'zh'; try { localStorage.setItem('ui-lang', 'zh'); } catch (e) {} paintPrefs(); load(); };
+        document.getElementById('btn-en').onclick = function () { lang = 'en'; root.dataset.lang = 'en'; try { localStorage.setItem('ui-lang', 'en'); } catch (e) {} paintPrefs(); load(); };
+        document.getElementById('btn-dark').onclick = function () { root.dataset.theme = 'dark'; try { localStorage.setItem('ui-theme', 'dark'); } catch (e) {} paintPrefs(); };
+        document.getElementById('btn-light').onclick = function () { root.dataset.theme = 'light'; try { localStorage.setItem('ui-theme', 'light'); } catch (e) {} paintPrefs(); };
+
+        function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+        function trendSvg(daily) {
+          if (!daily.length) return '';
+          var W = 920, H = 220, P = 28;
+          var max = Math.max.apply(null, daily.map(function (d) { return d.pageViews; }).concat([1]));
+          var stepX = (W - P * 2) / Math.max(daily.length - 1, 1);
+          var pts = daily.map(function (d, i) {
+            return [P + i * stepX, H - P - (d.pageViews / max) * (H - P * 2)];
+          });
+          var line = pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+          var dots = pts.map(function (p) {
+            return '<rect x="' + (p[0] - 2) + '" y="' + (p[1] - 2) + '" width="4" height="4" fill="var(--accent)"/>';
+          }).join('');
+          return '<svg class="trend" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">'
+            + '<line x1="' + P + '" y1="' + (H - P) + '" x2="' + (W - P) + '" y2="' + (H - P) + '" stroke="var(--line)"/>'
+            + '<polyline points="' + line + '" fill="none" stroke="var(--accent)" stroke-width="1.5"/>'
+            + dots + '</svg>';
+        }
+
+        function render(data) {
+          var t = I18N[lang];
+          var c = document.getElementById('content');
+          if (!data.ok) {
+            var miss = (data.missing || []).map(function (m) { return '<code>' + esc(m) + '</code>'; }).join(' ');
+            var steps = t.setupSteps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('');
+            c.innerHTML = '<div class="setup"><h2>' + esc(data.error === 'ga_query_failed' ? t.failed + esc(data.detail || '') : t.setupT) + '</h2>'
+              + '<p>' + t.setupP + '</p>'
+              + '<div class="missing">' + (miss || esc(data.error)) + '</div>'
+              + '<ol>' + steps + '</ol>'
+              + '<p style="margin-top:12px">' + t.reload + '</p></div>';
+            return;
+          }
+          var rows = data.topPages.map(function (p, i) {
+            return '<tr><td class="num mono">' + String(i + 1).padStart(2, '0') + '</td><td>' + esc(p.path) + '</td><td class="num">' + p.pageViews + '</td></tr>';
+          }).join('');
+          c.innerHTML =
+            '<div class="cards">'
+            + '<div class="card"><div class="k">' + t.pv + '</div><div class="v accent">' + data.totals.pageViews + '</div></div>'
+            + '<div class="card"><div class="k">' + t.ss + '</div><div class="v">' + data.totals.sessions + '</div></div>'
+            + '<div class="card"><div class="k">' + t.au + '</div><div class="v">' + data.totals.activeUsers + '</div></div>'
+            + '<div class="card"><div class="k">' + t.rt + '</div><div class="v accent">' + data.realtimeUsers + '</div></div>'
+            + '</div>'
+            + '<div class="panel"><div class="ph"><span>' + t.trend + '</span><span>' + t.range + '</span></div><div class="pb">' + trendSvg(data.daily) + '</div></div>'
+            + '<div class="panel"><div class="ph"><span>' + t.top + '</span></div><table><thead><tr><th>NO.</th><th>' + t.path + '</th><th>' + t.views + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+        }
+
+        function load() {
+          var t = I18N[lang];
+          document.getElementById('content').innerHTML =
+            '<div class="panel"><div class="ph"><span>STATUS</span></div><div class="pb mono" style="font-size:12px;color:var(--dim)">' + t.loading + '</div></div>';
+          fetch('/api/ga')
+            .then(function (r) { return r.json(); })
+            .then(render)
+            .catch(function (e) {
+              document.getElementById('content').innerHTML =
+                '<div class="setup"><h2>' + esc(I18N[lang].failed) + '</h2><p class="mono">' + esc(e) + '</p></div>';
+            });
+        }
+
+        paintPrefs();
+        load();
+      })();
+    </script>
+  </body>
+</html>

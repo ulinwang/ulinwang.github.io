@@ -5,7 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>内容管理 | UlinWang</title>
+    <style>
+      .dash-link {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 9999;
+        font-family: monospace;
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        text-decoration: none;
+        color: #fff;
+        background: #b450b0;
+        border: 1px solid #b450b0;
+        padding: 8px 14px;
+      }
+      .dash-link:hover {
+        opacity: 0.85;
+      }
+    </style>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
-  <body></body>
+  <body>
+    <a class="dash-link" href="/admin/dashboard">数据看板 / DASHBOARD →</a>
+  </body>
 </html>

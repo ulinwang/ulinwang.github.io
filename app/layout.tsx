@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Noto_Sans_SC, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
@@ -7,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Frame from '@/components/Frame';
 import UiPrefsProvider from '@/components/UiPrefs';
+import GaPageView from '@/components/GaPageView';
 import { getAbout } from '@/lib/content';
 
 const sans = Noto_Sans_SC({
@@ -51,7 +53,19 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: prefsScript }} />
       </head>
       <body className="font-sans antialiased">
+        {/* GA4：G-9QE68891YP，匿名化 IP；路由切换由 GaPageView 上报 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-9QE68891YP"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9QE68891YP', { anonymize_ip: true });`}
+        </Script>
         <UiPrefsProvider>
+          <GaPageView />
           <CustomCursor />
           <Frame />
           <Navbar />

@@ -67,6 +67,26 @@ npm run dev
 
 然后访问 http://localhost:3000/admin/，改动直接写入本地 `content/` 文件。
 
+## 数据分析（GA4 + 看板）
+
+- 全站通过 `next/script`（afterInteractive）加载 gtag.js，Measurement ID `G-9QE68891YP`，开启 `anonymize_ip`；App Router 路由切换由 `components/GaPageView.tsx` 上报 `page_view`。
+- 看板页：`/admin/dashboard`（纯静态页 `public/admin/dashboard/index.html`，与 Decap 无路由冲突；Decap 页右下角有入口链接）。UI 跟随主站设计系统与语言/主题偏好（localStorage `ui-lang`/`ui-theme`）。
+- 数据接口：`app/api/ga/route.ts` 调用 GA4 Data API（runReport + runRealtimeReport），服务账号 JWT 认证（手写 RS256，无额外依赖）。
+
+### 看板所需环境变量（Vercel）
+
+1. Google Cloud 创建**服务账号**，启用 **Google Analytics Data API**，下载 JSON 密钥
+2. GA4 媒体资源 → 管理 → 媒体资源访问权限，把服务账号邮箱加为「查看者」
+3. Vercel → Settings → Environment Variables 配置：
+
+| 变量 | 来源 |
+|---|---|
+| `GA_PROPERTY_ID` | GA4 媒体资源 ID（纯数字，GA 后台 → 媒体资源设置） |
+| `GA_CLIENT_EMAIL` | 服务账号 JSON 的 `client_email` |
+| `GA_PRIVATE_KEY` | 服务账号 JSON 的 `private_key`（整段粘贴，含 BEGIN/END 行） |
+
+未配置时接口返回 503，看板页显示「待配置」指引而不会白屏。
+
 ## 构建
 
 ```bash
